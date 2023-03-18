@@ -1,8 +1,7 @@
 {
-  "name": "boardgame-rental",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
-  "workspaces": ["packages/*"],
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
@@ -25,12 +24,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "yarn workspace client run start",
-    "build": "yarn workspace client run build",
-    "test": "yarn workspace client run test",
-    "eject": "yarn workspace client run eject",
-    "lint": "yarn workspace client run lint",
-    "lint:fix": "yarn workspace client run lint:fix",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "prepare": "husky install"
   },
   "eslintConfig": {
