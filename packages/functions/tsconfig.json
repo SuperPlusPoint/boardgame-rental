@@ -5,14 +5,14 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "outDir": "lib",
+    "noEmit": false,
     "sourceMap": true,
     "strict": true,
-    "target": "es2017",
-    "jsx": "react"
+    "target": "es2017"
   },
   "compileOnSave": true,
   "include": [
-    "src"
+    "src/**/*"
   ],
   "exclude": ["node_modules"]
 }

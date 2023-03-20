@@ -21,9 +21,11 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "packages/*/src"
   ],
   "references": [{
     "path": "./packages/client"
+  },{
+    "path": "./packages/functions"
   }]
 }

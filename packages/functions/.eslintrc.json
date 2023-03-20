@@ -14,8 +14,8 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["tsconfig.json", "tsconfig.dev.json"],
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
   "ignorePatterns": [
     "/lib/**/*" // Ignore built files.
@@ -25,7 +25,7 @@
     "import"
   ],
   "rules": {
-    "quotes": ["error", "double"],
-    "import/no-unresolved": 0
+    "import/no-unresolved": 0,
+    "new-cap": "off"
   }
 }
