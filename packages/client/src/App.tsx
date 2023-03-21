@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChakraProvider, Box, Text, Grid, theme } from '@chakra-ui/react';
+import { ChakraProvider, Box, Grid, theme } from '@chakra-ui/react';
 import Router from './Router';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 
@@ -9,7 +9,6 @@ export const App = () => (
     <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>
         <ColorModeSwitcher justifySelf="flex-end" />
-        <Text>Boardgame-rental</Text>
       </Grid>
     </Box>
   </ChakraProvider>
