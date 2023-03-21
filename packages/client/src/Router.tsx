@@ -1,29 +1,23 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import About from './pages/About';
-import List from './pages/List';
 import ListAdd from './pages/ListAdd';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Setting from './pages/Setting';
+import List from './pages/List';
+import PrivateRouter from './PrivateRouter';
 
 const Router = () => {
-  const isLogin = true;
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate replace to="/about" />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/" element={<About />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/setting" element={<Setting />} />
-        <Route
-          path="/list"
-          element={
-            isLogin ? <Navigate replace to="/list/:userId" /> : <Login />
-          }
-        />
+        <Route element={<PrivateRouter />}>
+          <Route path="/setting" element={<Setting />} />
+          <Route path="/list/add" element={<ListAdd />} />
+        </Route>
         <Route path="/list/:userId" element={<List />} />
-        <Route path="/list/add" element={<ListAdd />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
