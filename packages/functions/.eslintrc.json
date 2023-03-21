@@ -27,6 +27,7 @@
   "rules": {
     "import/no-unresolved": 0,
     "max-len": ["error", 120],
-    "new-cap": "off"
+    "new-cap": "off",
+    "@typescript-eslint/no-empty-interface": "off"
   }
 }
