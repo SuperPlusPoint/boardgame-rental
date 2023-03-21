@@ -7,6 +7,8 @@ import NotFound from './pages/NotFound';
 import Setting from './pages/Setting';
 
 const Router = () => {
+  const isLogin = true;
+
   return (
     <BrowserRouter>
       <Routes>
@@ -14,7 +16,12 @@ const Router = () => {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/setting" element={<Setting />} />
-        <Route path="/list" element={<Login />} />
+        <Route
+          path="/list"
+          element={
+            isLogin ? <Navigate replace to="/list/:userId" /> : <Login />
+          }
+        />
         <Route path="/list/:userId" element={<List />} />
         <Route path="/list/add" element={<ListAdd />} />
         <Route path="*" element={<NotFound />} />
