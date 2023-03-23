@@ -3,6 +3,7 @@ import axios from 'axios';
 import parser from 'xml-js';
 import {BoardGameResponse, BoardgameSearchResponse} from './types';
 import {toBoardGame} from './utils';
+import {db} from '..';
 
 const router = express.Router();
 const client = axios.create({baseURL: 'https://api.geekdo.com'});
@@ -38,7 +39,10 @@ router.get('/', async (req: Request<ReqParams, ReqBody, ResBody, ReqQuery>, res)
   }
   const boardGameResponse = await getBoardGamesInfo(ids);
   const boardGameList = Array.isArray(boardGameResponse) ? boardGameResponse : [boardGameResponse];
-  res.json(boardGameList.map(toBoardGame));
+  const boardGames = boardGameList.map(toBoardGame);
+
+  boardGames.map(boardGame => db.collection('boardgames').doc(boardGame.id).set(boardGame));
+  res.json(boardGames);
 });
 
 export default router;
