@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound';
 import Setting from './pages/Setting';
 import List from './pages/List';
 import PrivateRouter from './PrivateRouter';
+import KakaoLogin from './pages/KakaoLogin';
 
 const Router = () => {
   return (
@@ -13,6 +14,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<About />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/login/kakao" element={<KakaoLogin />} />
         <Route element={<PrivateRouter />}>
           <Route path="/setting" element={<Setting />} />
           <Route path="/list/add" element={<ListAdd />} />
