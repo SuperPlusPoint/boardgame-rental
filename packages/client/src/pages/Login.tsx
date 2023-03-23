@@ -5,7 +5,7 @@ import {
   Text,
   Grid,
   theme,
-  Button,
+  IconButton,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
@@ -24,7 +24,15 @@ const Login = () => {
               'http://localhost:3000/login/kakao'
             )}&response_type=code`}
           >
-            <Button>카카오 로그인</Button>
+            <IconButton
+              aria-label="kakaologin"
+              icon={
+                <img
+                  src="/imges/kakao_login_medium_wide.png"
+                  alt="/imges/kakao_login_medium_wide.png"
+                />
+              }
+            />
           </Link>
         </Grid>
       </Box>
