@@ -8,18 +8,16 @@ import {
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-type SearchBarProps = {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-};
+interface SearchBarProps {
+  onSearch: (val: string) => void;
+}
 
-const SearchBar = ({ onClick }: SearchBarProps) => {
+const SearchBar = ({ onSearch }: SearchBarProps) => {
   const [value, setValue] = useState('');
   const handleValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inpVal = e.target.value;
     setValue(inpVal);
   };
-
-  console.log(value);
 
   return (
     <FormControl>
@@ -37,7 +35,7 @@ const SearchBar = ({ onClick }: SearchBarProps) => {
           colorScheme="blue"
           aria-label="Search"
           icon={<SearchIcon />}
-          onClick={onClick}
+          onClick={() => onSearch(value)}
         />
       </Box>
     </FormControl>

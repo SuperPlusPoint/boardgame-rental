@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { Box, IconButton, Button } from '@chakra-ui/react';
 import { InfoIcon, SettingsIcon } from '@chakra-ui/icons';
 
@@ -9,21 +8,6 @@ type HeaderProps = {
 
 const Header = ({ isLogin }: HeaderProps) => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const [path, setPath] = useState('');
-  const goToAbout = () => {
-    navigate('/');
-  };
-  const goToLogin = () => {
-    navigate('/login');
-  };
-  const goToSetting = () => {
-    navigate('/setting');
-  };
-
-  useEffect(() => {
-    setPath(location.pathname);
-  }, [location]);
 
   return (
     <Box>
@@ -36,20 +20,28 @@ const Header = ({ isLogin }: HeaderProps) => {
           p={2}
           bg="#3182CE"
         >
-          <IconButton
-            onClick={goToAbout}
-            color="white"
-            colorScheme="none"
-            aria-label="Information"
-            icon={<InfoIcon />}
-          />
-          <IconButton
-            onClick={goToSetting}
-            color="white"
-            colorScheme="none"
-            aria-label="Setting"
-            icon={<SettingsIcon />}
-          />
+          <Link to="/">
+            <IconButton
+              color="white"
+              colorScheme="none"
+              aria-label="Information"
+              icon={<InfoIcon />}
+            />
+          </Link>
+          {location.pathname === '/setting' ? (
+            <Link to="/login">
+              <Button colorScheme="#3182CE">로그아웃</Button>
+            </Link>
+          ) : (
+            <Link to="/setting">
+              <IconButton
+                color="white"
+                colorScheme="none"
+                aria-label="Setting"
+                icon={<SettingsIcon />}
+              />
+            </Link>
+          )}
         </Box>
       ) : (
         <Box
@@ -61,22 +53,17 @@ const Header = ({ isLogin }: HeaderProps) => {
           bg="#3182CE"
           color="white"
         >
-          <IconButton
-            onClick={goToAbout}
-            color="white"
-            colorScheme="none"
-            aria-label="Information"
-            icon={<InfoIcon />}
-          />
-          {path === '/setting' ? (
-            <Button onClick={goToAbout} colorScheme="#3182CE">
-              로그아웃
-            </Button>
-          ) : (
-            <Button onClick={goToLogin} colorScheme="#3182CE">
-              로그인
-            </Button>
-          )}
+          <Link to="/">
+            <IconButton
+              color="white"
+              colorScheme="none"
+              aria-label="Information"
+              icon={<InfoIcon />}
+            />
+          </Link>
+          <Link to="/login">
+            <Button colorScheme="#3182CE">로그인</Button>
+          </Link>
         </Box>
       )}
     </Box>
