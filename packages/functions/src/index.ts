@@ -5,7 +5,8 @@ import authRouter from './auth';
 import searchRouter from './search';
 import cors from 'cors';
 
-admin.initializeApp();
+admin.initializeApp(functions.config().firebase);
+export const db = admin.firestore();
 
 const app = express();
 

@@ -10,8 +10,7 @@
     "eject": "yarn workspace client run eject",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspace client run lint:fix",
-    "fb": "yarn workspace functions",
-    "prepare": "husky install"
+    "fb": "yarn workspace functions"
   },
   "eslintConfig": {
     "extends": "react-app"
