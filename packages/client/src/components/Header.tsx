@@ -1,71 +1,57 @@
-import { useLocation, Link } from 'react-router-dom';
-import { Box, IconButton, Button } from '@chakra-ui/react';
-import { InfoIcon, SettingsIcon } from '@chakra-ui/icons';
+import { Link } from 'react-router-dom';
+import {
+  Box,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
+} from '@chakra-ui/react';
+import {
+  HamburgerIcon,
+  InfoIcon,
+  SettingsIcon,
+  LockIcon,
+  PlusSquareIcon,
+  UnlockIcon,
+} from '@chakra-ui/icons';
 
 type HeaderProps = {
   isLogin: boolean;
 };
 
 const Header = ({ isLogin }: HeaderProps) => {
-  const location = useLocation();
-
   return (
-    <Box>
-      {isLogin ? (
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          w="100%"
-          p={2}
-          bg="#3182CE"
-        >
+    <Box pos="fixed" zIndex={10} top="0" w="100%" p={2}>
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Options"
+          icon={<HamburgerIcon />}
+          colorScheme="blue"
+        />
+        <MenuList>
           <Link to="/">
-            <IconButton
-              color="white"
-              colorScheme="none"
-              aria-label="Information"
-              icon={<InfoIcon />}
-            />
+            <MenuItem icon={<InfoIcon />}>About</MenuItem>
           </Link>
-          {location.pathname === '/setting' ? (
+
+          {isLogin ? (
             <Link to="/login">
-              <Button colorScheme="#3182CE">로그아웃</Button>
+              <MenuItem icon={<LockIcon />}>Login</MenuItem>
             </Link>
           ) : (
-            <Link to="/setting">
-              <IconButton
-                color="white"
-                colorScheme="none"
-                aria-label="Setting"
-                icon={<SettingsIcon />}
-              />
+            <Link to="/">
+              <MenuItem icon={<UnlockIcon />}>LogOut</MenuItem>
             </Link>
           )}
-        </Box>
-      ) : (
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          w="100%"
-          p={2}
-          bg="#3182CE"
-          color="white"
-        >
-          <Link to="/">
-            <IconButton
-              color="white"
-              colorScheme="none"
-              aria-label="Information"
-              icon={<InfoIcon />}
-            />
+          <Link to="/list/add">
+            <MenuItem icon={<PlusSquareIcon />}>Add List</MenuItem>
           </Link>
-          <Link to="/login">
-            <Button colorScheme="#3182CE">로그인</Button>
+          <Link to="/setting">
+            <MenuItem icon={<SettingsIcon />}>Setting</MenuItem>
           </Link>
-        </Box>
-      )}
+        </MenuList>
+      </Menu>
     </Box>
   );
 };
