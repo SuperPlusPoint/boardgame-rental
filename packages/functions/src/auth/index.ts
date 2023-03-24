@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
 const createUser = (uid: string, name: string) => ({
   uid,
   name,
-  boardGames: [],
 });
 
 router.post('/kakao', async (req, res) => {
