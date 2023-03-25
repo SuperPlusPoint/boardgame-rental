@@ -3,19 +3,14 @@ import { Flex, Heading, Box, Button } from '@chakra-ui/react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import EditableBoardGameList from '../components/EditableBoardGameList';
-import { UserBoardGame } from '../models/boardgame';
+import { useAuthContext } from '../AuthProvider';
+import { useUserBoardGame } from '../hooks/useUserBoardGame';
 
 const Setting = () => {
-  const userBoardGameList: UserBoardGame[] = [
-    {
-      id: '1',
-      name: '루미큐브',
-      thumbnail:
-        'https://cf.geekdo-images.com/LeaLDlTTmeN639MfuflcMw__itemrep/img/x4GW0OJaN-pV8-K_b4RTSFioW6U=/fit-in/246x300/filters:strip_icc()/pic2286966.jpg',
-      total: 0,
-      rental: 0,
-    },
-  ];
+  const { user } = useAuthContext();
+  const { settingBoardGames, setFilter, updateBoardGame, saveBoardGames } =
+    useUserBoardGame(user?.uid || 'no-login');
+
   return (
     <>
       <Header isLogin />
@@ -32,9 +27,12 @@ const Setting = () => {
           <Heading as="h2" size="lg" lineHeight="tall" textAlign="center">
             보드게임 관리
           </Heading>
-          <SearchBar onSearch={(value) => console.log(value)} />
+          <SearchBar onSearch={(value) => setFilter(value)} />
         </Box>
-        <EditableBoardGameList boardGameList={userBoardGameList} />
+        <EditableBoardGameList
+          boardGameList={settingBoardGames}
+          updateBoardGame={updateBoardGame}
+        />
         <Button
           size="md"
           pos="fixed"
@@ -42,6 +40,7 @@ const Setting = () => {
           width="60%"
           colorScheme="blue"
           my={2}
+          onClick={() => saveBoardGames()}
         >
           저장하기
         </Button>

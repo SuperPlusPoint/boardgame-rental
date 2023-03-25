@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Flex, Image, Box, Text } from '@chakra-ui/react';
 import { UserBoardGame } from '../models/boardgame';
 import NumericInput from './NumericInput';
 
 interface EditableListItemProps {
   userBoardGame: UserBoardGame;
+  updateBoardGame: (bid: string, rental: number, total: number) => void;
 }
 
 const EditableListItem: React.FC<EditableListItemProps> = ({
   userBoardGame,
+  updateBoardGame,
 }) => {
+  const [rental, setRental] = useState<number>(userBoardGame.rental);
+  const [total, setTotal] = useState<number>(userBoardGame.total);
+
+  useEffect(() => {
+    updateBoardGame(userBoardGame.id, rental, total);
+  }, [rental, total, updateBoardGame, userBoardGame.id]);
+
   return (
     <Flex justify="center" align="center" mb={3}>
       <Image
@@ -24,8 +33,17 @@ const EditableListItem: React.FC<EditableListItemProps> = ({
           {userBoardGame.name}
         </Text>
         <Box>
-          <NumericInput label="대여" value={userBoardGame.rental} />
-          <NumericInput label="보유" value={userBoardGame.total} />
+          <NumericInput
+            label="대여"
+            value={userBoardGame.rental}
+            max={total}
+            onChange={(v) => setRental(v)}
+          />
+          <NumericInput
+            label="보유"
+            value={userBoardGame.total}
+            onChange={(v) => setTotal(v)}
+          />
         </Box>
       </Box>
     </Flex>
