@@ -1,11 +1,55 @@
 import * as React from 'react';
-import { Flex, Heading, Box, Button, Accordion } from '@chakra-ui/react';
+import { Flex, Heading, Box, Button } from '@chakra-ui/react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
-import ListTable from '../components/ListTable';
-import AddItem from '../components/AddItem';
+import SelectedList from '../components/SelectedList';
+import SearchList from '../components/SearchList';
+import { BoardGame, UserBoardGame } from '../models/boardgame';
 
 const ListAdd = () => {
+  const boardGameList: BoardGame[] = [
+    {
+      id: '1',
+      publishedYear: 2002,
+      minPlayerNum: 2,
+      maxPlayerNum: 5,
+      playingTime: 30,
+      minPlayTime: 30,
+      maxPlayTime: 50,
+      age: 10,
+      name: 'RumiCube',
+      koreanName: '루미큐브',
+      thumbnail:
+        'https://cf.geekdo-images.com/LeaLDlTTmeN639MfuflcMw__itemrep/img/x4GW0OJaN-pV8-K_b4RTSFioW6U=/fit-in/246x300/filters:strip_icc()/pic2286966.jpg',
+      image: '',
+    },
+    {
+      id: '2',
+      publishedYear: 2002,
+      minPlayerNum: 2,
+      maxPlayerNum: 5,
+      playingTime: 30,
+      minPlayTime: 30,
+      maxPlayTime: 50,
+      age: 10,
+      name: 'RumiCube',
+      koreanName: '루미큐브',
+      thumbnail:
+        'https://cf.geekdo-images.com/LeaLDlTTmeN639MfuflcMw__itemrep/img/x4GW0OJaN-pV8-K_b4RTSFioW6U=/fit-in/246x300/filters:strip_icc()/pic2286966.jpg',
+      image: '',
+    },
+  ];
+
+  const selectedList: UserBoardGame[] = [
+    {
+      id: '1',
+      name: '루미큐브',
+      thumbnail:
+        'https://cf.geekdo-images.com/LeaLDlTTmeN639MfuflcMw__itemrep/img/x4GW0OJaN-pV8-K_b4RTSFioW6U=/fit-in/246x300/filters:strip_icc()/pic2286966.jpg',
+      total: 0,
+      rental: 0,
+    },
+  ];
   return (
     <>
       <Header isLogin />
@@ -24,17 +68,8 @@ const ListAdd = () => {
           </Heading>
           <SearchBar onSearch={(value) => console.log(value)} />
         </Box>
-        <Flex w="100%" flexDirection="column" mr="auto">
-          <Accordion mt={3}>
-            <AddItem />
-            <AddItem />
-            <AddItem />
-            <AddItem />
-            <AddItem />
-            <AddItem />
-          </Accordion>
-        </Flex>
-        <ListTable />
+        <SearchList boardGameList={boardGameList} />
+        <SelectedList selectedList={selectedList} />
         <Button
           size="md"
           pos="fixed"

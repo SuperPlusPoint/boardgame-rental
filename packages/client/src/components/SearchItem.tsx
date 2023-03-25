@@ -9,14 +9,19 @@ import {
   ListItem,
   Image,
 } from '@chakra-ui/react';
+import { BoardGame } from '../models/boardgame';
 
-const AddItem = () => {
+interface SearchItemProps {
+  boardGame: BoardGame;
+}
+
+const SearchItem: React.FC<SearchItemProps> = ({ boardGame }) => {
   return (
     <AccordionItem>
       <h2>
         <AccordionButton>
           <Box as="b" flex="1" textAlign="left" fontSize="sm">
-            루미큐브
+            {boardGame.koreanName || boardGame.name}
           </Box>
           <AccordionIcon />
         </AccordionButton>
@@ -32,12 +37,14 @@ const AddItem = () => {
             boxSize="4rem"
             borderRadius="md"
             objectFit="cover"
-            src="https://cf.geekdo-images.com/LeaLDlTTmeN639MfuflcMw__itemrep/img/x4GW0OJaN-pV8-K_b4RTSFioW6U=/fit-in/246x300/filters:strip_icc()/pic2286966.jpg"
-            alt="Dan Abramov"
+            src={boardGame.thumbnail}
+            alt={`${boardGame.name} thumbnail`}
           />
           <Box ml={5}>
-            <ListItem>2-4 Players</ListItem>
-            <ListItem>Playing Time : 60 Min</ListItem>
+            <ListItem>
+              {boardGame.minPlayerNum}-{boardGame.maxPlayerNum} Players
+            </ListItem>
+            <ListItem>Playing Time : {boardGame.playingTime} Min</ListItem>
           </Box>
         </UnorderedList>
       </AccordionPanel>
@@ -45,4 +52,4 @@ const AddItem = () => {
   );
 };
 
-export default AddItem;
+export default SearchItem;

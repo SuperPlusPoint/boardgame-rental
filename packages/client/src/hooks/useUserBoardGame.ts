@@ -4,8 +4,8 @@ import {
   doc,
   getDocs,
   increment,
-  setDoc,
   updateDoc,
+  writeBatch,
 } from 'firebase/firestore';
 import { useCallback, useMemo } from 'react';
 import { useQuery } from 'react-query';
@@ -36,13 +36,13 @@ export const useUserBoardGame = (userId: string) => {
     }
   );
 
-  const addBoardGame = useCallback(
-    (boardGameId: string, total: number) => {
-      setDoc(doc(userBoardGameCollection, boardGameId), {
-        id: boardGameId,
-        rental: 0,
-        total,
+  const addBoardGames = useCallback(
+    (list: UserBoardGame[]) => {
+      const batch = writeBatch(db);
+      list.forEach((boardGame) => {
+        batch.set(doc(userBoardGameCollection, boardGame.id), boardGame);
       });
+      return batch.commit();
     },
     [userBoardGameCollection]
   );
@@ -84,7 +84,7 @@ export const useUserBoardGame = (userId: string) => {
 
   return {
     boardGames,
-    addBoardGame,
+    addBoardGames,
     updateBoardGame,
     deleteBoardGame,
     rentBoardGame,

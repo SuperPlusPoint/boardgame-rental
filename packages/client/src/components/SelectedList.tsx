@@ -8,9 +8,14 @@ import {
   Th,
   TableContainer,
 } from '@chakra-ui/react';
-import TableItem from './TableItem';
+import SelectedItem from './SelectedItem';
+import { UserBoardGame } from '../models/boardgame';
 
-const ListTable = () => {
+interface SelectedListProps {
+  selectedList: UserBoardGame[];
+}
+
+const SelectedList: React.FC<SelectedListProps> = ({ selectedList }) => {
   return (
     <Box pos="fixed" bottom="7rem" w="85%" maxHeight="23vh" overflow="scroll">
       <TableContainer whiteSpace="normal" wordBreak="break-word">
@@ -22,11 +27,9 @@ const ListTable = () => {
             </Tr>
           </Thead>
           <Tbody>
-            <TableItem />
-            <TableItem />
-            <TableItem />
-            <TableItem />
-            <TableItem />
+            {selectedList.map((item) => (
+              <SelectedItem key={item.id} item={item} />
+            ))}
           </Tbody>
         </Table>
       </TableContainer>
@@ -34,4 +37,4 @@ const ListTable = () => {
   );
 };
 
-export default ListTable;
+export default SelectedList;
