@@ -11,13 +11,10 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { LinkIcon } from '@chakra-ui/icons';
-import { useLocation } from 'react-router-dom';
 
 const ShareButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
-  const location = useLocation();
-  const link = `http://localhost:3000${location.pathname}`;
 
   const copyClipboard = async (
     text: string,
@@ -64,7 +61,7 @@ const ShareButton = () => {
               mr={3}
               onClick={() =>
                 copyClipboard(
-                  link,
+                  window.location.href,
                   () =>
                     toast({
                       title: '링크가 클립보드에 저장되었습니다.',
