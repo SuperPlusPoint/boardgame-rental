@@ -4,7 +4,6 @@ import {
   doc,
   getDoc,
   getDocs,
-  increment,
   updateDoc,
   writeBatch,
 } from 'firebase/firestore';
@@ -147,9 +146,9 @@ export const useUserBoardGame = (userId: string) => {
   }, []);
 
   const rentBoardGame = useCallback(
-    async (boardGameId: string) => {
-      await updateDoc(doc(userBoardGameCollection, boardGameId), {
-        rental: increment(1),
+    async (boardGame: UserBoardGame) => {
+      await updateDoc(doc(userBoardGameCollection, boardGame.id), {
+        rental: Math.min(boardGame.total, boardGame.rental + 1),
       });
       refetch();
     },
@@ -157,9 +156,9 @@ export const useUserBoardGame = (userId: string) => {
   );
 
   const returnBoardGame = useCallback(
-    async (boardGameId: string) => {
-      await updateDoc(doc(userBoardGameCollection, boardGameId), {
-        rental: increment(-1),
+    async (boardGame: UserBoardGame) => {
+      await updateDoc(doc(userBoardGameCollection, boardGame.id), {
+        rental: Math.max(0, boardGame.rental - 1),
       });
       refetch();
     },

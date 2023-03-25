@@ -12,6 +12,7 @@ import {
   InfoIcon,
   SettingsIcon,
   LockIcon,
+  StarIcon,
   PlusSquareIcon,
   UnlockIcon,
 } from '@chakra-ui/icons';
@@ -44,12 +45,19 @@ const Header = () => {
               </MenuItem>
             </Link>
           )}
-          <Link to="/list/add">
-            <MenuItem icon={<PlusSquareIcon />}>Add List</MenuItem>
-          </Link>
-          <Link to="/setting">
-            <MenuItem icon={<SettingsIcon />}>Setting</MenuItem>
-          </Link>
+          {user && (
+            <>
+              <Link to={`/list/${user.uid}`}>
+                <MenuItem icon={<StarIcon />}>List</MenuItem>
+              </Link>
+              <Link to="/list/add">
+                <MenuItem icon={<PlusSquareIcon />}>Add List</MenuItem>
+              </Link>
+              <Link to="/setting">
+                <MenuItem icon={<SettingsIcon />}>Setting</MenuItem>
+              </Link>
+            </>
+          )}
         </MenuList>
       </Menu>
     </Box>

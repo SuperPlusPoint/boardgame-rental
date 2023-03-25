@@ -12,6 +12,7 @@ import { useAuthContext } from '../AuthProvider';
 const ListAdd = () => {
   const { user } = useAuthContext();
   const {
+    isLoading,
     searchedBoardGameList,
     selectedBoardGameList,
     searchBoardGame,
@@ -27,7 +28,6 @@ const ListAdd = () => {
       <Flex
         pos="relative"
         top="3.5rem"
-        h="100%"
         flexDirection="column"
         justify="center"
         align="center"
@@ -40,6 +40,7 @@ const ListAdd = () => {
           <SearchBar onSearch={(value) => searchBoardGame(value)} />
         </Box>
         <SearchList
+          isLoading={isLoading}
           boardGameList={searchedBoardGameList}
           selectBoardGame={selectBoardGame}
         />
