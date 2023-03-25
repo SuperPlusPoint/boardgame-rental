@@ -4,42 +4,11 @@ import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import SelectedList from '../components/SelectedList';
 import SearchList from '../components/SearchList';
-import { BoardGame, UserBoardGame } from '../models/boardgame';
+import { UserBoardGame } from '../models/boardgame';
+import { useBoardGame } from '../hooks/useBoardGame';
 
 const ListAdd = () => {
-  const boardGameList: BoardGame[] = [
-    {
-      id: '1',
-      publishedYear: 2002,
-      minPlayerNum: 2,
-      maxPlayerNum: 5,
-      playingTime: 30,
-      minPlayTime: 30,
-      maxPlayTime: 50,
-      age: 10,
-      name: 'RumiCube',
-      koreanName: '루미큐브',
-      thumbnail:
-        'https://cf.geekdo-images.com/LeaLDlTTmeN639MfuflcMw__itemrep/img/x4GW0OJaN-pV8-K_b4RTSFioW6U=/fit-in/246x300/filters:strip_icc()/pic2286966.jpg',
-      image: '',
-    },
-    {
-      id: '2',
-      publishedYear: 2002,
-      minPlayerNum: 2,
-      maxPlayerNum: 5,
-      playingTime: 30,
-      minPlayTime: 30,
-      maxPlayTime: 50,
-      age: 10,
-      name: 'RumiCube',
-      koreanName: '루미큐브',
-      thumbnail:
-        'https://cf.geekdo-images.com/LeaLDlTTmeN639MfuflcMw__itemrep/img/x4GW0OJaN-pV8-K_b4RTSFioW6U=/fit-in/246x300/filters:strip_icc()/pic2286966.jpg',
-      image: '',
-    },
-  ];
-
+  const { searchedBoardGameList, searchBoardGame } = useBoardGame();
   const selectedList: UserBoardGame[] = [
     {
       id: '1',
@@ -66,9 +35,9 @@ const ListAdd = () => {
           <Heading as="h2" size="lg" lineHeight="tall" textAlign="center">
             보드게임 추가
           </Heading>
-          <SearchBar onSearch={(value) => console.log(value)} />
+          <SearchBar onSearch={(value) => searchBoardGame(value)} />
         </Box>
-        <SearchList boardGameList={boardGameList} />
+        <SearchList boardGameList={searchedBoardGameList} />
         <SelectedList selectedList={selectedList} />
         <Button
           size="md"
