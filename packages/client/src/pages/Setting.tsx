@@ -13,7 +13,7 @@ const Setting = () => {
 
   return (
     <>
-      <Header isLogin />
+      <Header />
       <Flex
         pos="relative"
         top="3.5rem"

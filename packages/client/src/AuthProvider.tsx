@@ -10,20 +10,23 @@ const defaultAction = {
 
 const AuthStateContext = React.createContext<User | null>(null);
 const AuthActionContext = React.createContext(defaultAction);
+const AuthLoadingContext = React.createContext(true);
 
 export const useAuthContext = () => {
   const user = useContext(AuthStateContext);
   const { login, logout } = useContext(AuthActionContext);
+  const isLoading = useContext(AuthLoadingContext);
 
   return {
     user,
+    isLoading,
     login,
     logout,
   };
 };
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { user, login, logout } = useAuth();
+  const { user, login, logout, isLoading } = useAuth();
 
   const action = useMemo(
     () => ({
@@ -36,7 +39,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthActionContext.Provider value={action}>
       <AuthStateContext.Provider value={user}>
-        {children}
+        <AuthLoadingContext.Provider value={isLoading}>
+          {children}
+        </AuthLoadingContext.Provider>
       </AuthStateContext.Provider>
     </AuthActionContext.Provider>
   );

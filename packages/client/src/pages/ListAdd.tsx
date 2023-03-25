@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Flex, Heading, Box, Button } from '@chakra-ui/react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
@@ -21,13 +21,9 @@ const ListAdd = () => {
   const { addBoardGames } = useUserBoardGame(user?.uid || 'no-login');
   const navigate = useNavigate();
 
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
-
   return (
     <>
-      <Header isLogin />
+      <Header />
       <Flex
         pos="relative"
         top="3.5rem"
