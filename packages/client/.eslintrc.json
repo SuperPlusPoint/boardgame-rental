@@ -21,6 +21,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
+  "ignorePatterns": ["build"],
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "ignorePatterns": ["build"],
   "rules": {

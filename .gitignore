@@ -11,6 +11,7 @@ packages/*/node_modules
 
 # production
 /build
+packages/*/build
 
 # misc
 .DS_Store
