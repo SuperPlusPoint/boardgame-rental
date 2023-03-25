@@ -40,7 +40,9 @@ export const useUserBoardGame = (userId: string) => {
     (list: UserBoardGame[]) => {
       const batch = writeBatch(db);
       list.forEach((boardGame) => {
-        batch.set(doc(userBoardGameCollection, boardGame.id), boardGame);
+        if (boardGame.total > 0) {
+          batch.set(doc(userBoardGameCollection, boardGame.id), boardGame);
+        }
       });
       return batch.commit();
     },

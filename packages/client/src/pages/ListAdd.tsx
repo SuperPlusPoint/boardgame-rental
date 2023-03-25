@@ -1,12 +1,16 @@
 import * as React from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Flex, Heading, Box, Button } from '@chakra-ui/react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import SelectedList from '../components/SelectedList';
 import SearchList from '../components/SearchList';
 import { useBoardGame } from '../hooks/useBoardGame';
+import { useUserBoardGame } from '../hooks/useUserBoardGame';
+import { useAuthContext } from '../AuthProvider';
 
 const ListAdd = () => {
+  const { user } = useAuthContext();
   const {
     searchedBoardGameList,
     selectedBoardGameList,
@@ -14,6 +18,12 @@ const ListAdd = () => {
     selectBoardGame,
     changeTotal,
   } = useBoardGame();
+  const { addBoardGames } = useUserBoardGame(user?.uid || 'no-login');
+  const navigate = useNavigate();
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>
@@ -48,6 +58,11 @@ const ListAdd = () => {
           width="60%"
           colorScheme="blue"
           my={9}
+          onClick={() =>
+            addBoardGames(selectedBoardGameList).then(() =>
+              navigate('/setting')
+            )
+          }
         >
           추가하기
         </Button>
