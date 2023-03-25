@@ -15,6 +15,7 @@ const List = () => {
     user: { uid, name },
     boardGames,
     getBoardGame,
+    setFilter,
   } = useUserBoardGame(userId as string);
 
   return (
@@ -36,7 +37,7 @@ const List = () => {
             </Highlight>
             님의 보드게임 목록
           </Heading>
-          <SearchBar onSearch={(value) => console.log(value)} />
+          <SearchBar onSearch={(value) => setFilter(value)} />
         </Box>
         <BoardGameList
           boardGameList={boardGames}

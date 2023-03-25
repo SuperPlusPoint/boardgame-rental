@@ -8,7 +8,7 @@ import {
   updateDoc,
   writeBatch,
 } from 'firebase/firestore';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { db } from '../firebase';
 import { BoardGame, UserBoardGame } from '../models/boardgame';
@@ -39,7 +39,7 @@ export const useUserBoardGame = (userId: string) => {
     }
   );
 
-  const { data: boardGames = [] } = useQuery(
+  const { data = [] } = useQuery(
     `${userId}/boardgames`,
     async () => {
       const snapshot = await getDocs(userBoardGameCollection);
@@ -55,6 +55,14 @@ export const useUserBoardGame = (userId: string) => {
       enabled: !!userId,
     }
   );
+
+  const [filter, setFilter] = useState<string>('');
+  const boardGames = useMemo(() => {
+    if (!filter) {
+      return data;
+    }
+    return data.filter(({ name }) => name.includes(filter));
+  }, [data, filter]);
 
   const addBoardGames = useCallback(
     (list: UserBoardGame[]) => {
@@ -116,6 +124,7 @@ export const useUserBoardGame = (userId: string) => {
   return {
     user,
     boardGames,
+    setFilter,
     getBoardGame,
     addBoardGames,
     updateBoardGame,
