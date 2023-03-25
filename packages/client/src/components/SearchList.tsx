@@ -37,7 +37,6 @@ const SearchList: React.FC<SearchListProps> = ({
       </Flex>
     );
   }
-  // console.log(isFetched && 'cool~');
 
   return (
     <Flex
@@ -49,6 +48,7 @@ const SearchList: React.FC<SearchListProps> = ({
       textAlign="center"
     >
       <Accordion mt={3}>
+        {!isFetched && <Text mt={5}>추가할 보드게임 이름을 검색하세요</Text>}
         {isFetched && boardGameList.length === 0 ? (
           <Text mt={5}>검색 결과가 없습니다.</Text>
         ) : (
