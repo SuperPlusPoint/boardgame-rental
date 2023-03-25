@@ -16,8 +16,8 @@ interface ListItemProps {
   userBoardGame: UserBoardGame;
   getBoardGame: (bid: string) => Promise<BoardGame>;
   isLogin: boolean;
-  rentBoardGame: (bid: string) => Promise<void>;
-  returnBoardGame: (bid: string) => Promise<void>;
+  rentBoardGame: (boardGame: UserBoardGame) => Promise<void>;
+  returnBoardGame: (boardGame: UserBoardGame) => Promise<void>;
 }
 
 const ListItem: React.FC<ListItemProps> = ({
@@ -62,7 +62,7 @@ const ListItem: React.FC<ListItemProps> = ({
                   size="xs"
                   colorScheme="blue"
                   isDisabled={userBoardGame.rental === userBoardGame.total}
-                  onClick={() => rentBoardGame(userBoardGame.id)}
+                  onClick={() => rentBoardGame(userBoardGame)}
                 >
                   대여 하기
                 </Button>
@@ -70,7 +70,7 @@ const ListItem: React.FC<ListItemProps> = ({
                   size="xs"
                   colorScheme="red"
                   isDisabled={userBoardGame.rental < 1}
-                  onClick={() => returnBoardGame(userBoardGame.id)}
+                  onClick={() => returnBoardGame(userBoardGame)}
                 >
                   반납 하기
                 </Button>
