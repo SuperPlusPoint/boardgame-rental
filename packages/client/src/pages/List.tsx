@@ -1,23 +1,22 @@
 import * as React from 'react';
+import { useParams } from 'react-router-dom';
 import { Flex, Heading, Highlight, Box } from '@chakra-ui/react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import BoardGameList from '../components/BoardGameList';
 import ShareButton from '../components/ShareButton';
-import { UserBoardGame } from '../models/boardgame';
+import { useAuthContext } from '../AuthProvider';
+import { useUserBoardGame } from '../hooks/useUserBoardGame';
 
 const List = () => {
-  const name = '박은우 ethan';
-  const userBoardGameList: UserBoardGame[] = [
-    {
-      id: '1',
-      name: '루미큐브',
-      thumbnail:
-        'https://cf.geekdo-images.com/LeaLDlTTmeN639MfuflcMw__itemrep/img/x4GW0OJaN-pV8-K_b4RTSFioW6U=/fit-in/246x300/filters:strip_icc()/pic2286966.jpg',
-      total: 0,
-      rental: 0,
-    },
-  ];
+  const { user } = useAuthContext();
+  const { userId } = useParams();
+  const {
+    user: { uid, name },
+    boardGames,
+    getBoardGame,
+  } = useUserBoardGame(userId as string);
+
   return (
     <>
       <Header isLogin />
@@ -39,7 +38,11 @@ const List = () => {
           </Heading>
           <SearchBar onSearch={(value) => console.log(value)} />
         </Box>
-        <BoardGameList boardGameList={userBoardGameList} />
+        <BoardGameList
+          boardGameList={boardGames}
+          isLogin={user?.uid === uid}
+          getBoardGame={getBoardGame}
+        />
         <ShareButton />
       </Flex>
     </>

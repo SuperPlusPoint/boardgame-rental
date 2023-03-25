@@ -2,6 +2,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   increment,
   updateDoc,
@@ -10,8 +11,13 @@ import {
 import { useCallback, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { db } from '../firebase';
-import { UserBoardGame } from '../models/boardgame';
+import { BoardGame, UserBoardGame } from '../models/boardgame';
 
+const defaultUser = {
+  uid: 'no-login',
+  name: '',
+  boardGameList: [],
+};
 export const useUserBoardGame = (userId: string) => {
   const userRef = useMemo(() => doc(db, 'users', userId), [userId]);
   const userBoardGameCollection = useMemo(
@@ -19,7 +25,21 @@ export const useUserBoardGame = (userId: string) => {
     [userRef]
   );
 
-  const { data: boardGames } = useQuery(
+  const { data: user = defaultUser } = useQuery(
+    `user/${userId}`,
+    async () => {
+      const userData = await getDoc(userRef);
+      if (userData.exists()) {
+        return userData.data();
+      }
+      return defaultUser;
+    },
+    {
+      enabled: !!userId,
+    }
+  );
+
+  const { data: boardGames = [] } = useQuery(
     `${userId}/boardgames`,
     async () => {
       const snapshot = await getDocs(userBoardGameCollection);
@@ -66,6 +86,15 @@ export const useUserBoardGame = (userId: string) => {
     [userBoardGameCollection]
   );
 
+  const getBoardGame = useCallback(async (bid: string) => {
+    const boardGamesRef = doc(db, 'boardgames', bid);
+    const boardGameData = await getDoc(boardGamesRef);
+    if (boardGameData.exists()) {
+      return boardGameData.data() as BoardGame;
+    }
+    return {} as BoardGame;
+  }, []);
+
   const rentBoardGame = useCallback(
     (boardGameId: string) => {
       updateDoc(doc(userBoardGameCollection, boardGameId), {
@@ -85,7 +114,9 @@ export const useUserBoardGame = (userId: string) => {
   );
 
   return {
+    user,
     boardGames,
+    getBoardGame,
     addBoardGames,
     updateBoardGame,
     deleteBoardGame,
