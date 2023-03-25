@@ -9,30 +9,24 @@ import {
   Skeleton,
   SkeletonText,
 } from '@chakra-ui/react';
-import { UserBoardGame } from '../models/boardgame';
+import { useQuery } from 'react-query';
+import { BoardGame, UserBoardGame } from '../models/boardgame';
 
 interface ListItemProps {
   userBoardGame: UserBoardGame;
+  getBoardGame: (bid: string) => Promise<BoardGame>;
   isLogin: boolean;
 }
 
-const ListItem: React.FC<ListItemProps> = ({ userBoardGame, isLogin }) => {
-  const isLoading = true;
-  const boardGame = {
-    id: '1',
-    publishedYear: 2002,
-    minPlayerNum: 2,
-    maxPlayerNum: 5,
-    playingTime: 30,
-    minPlayTime: 30,
-    maxPlayTime: 50,
-    age: 10,
-    name: 'RumiCube',
-    koreanName: '루미큐브',
-    thumbnail:
-      'https://cf.geekdo-images.com/LeaLDlTTmeN639MfuflcMw__itemrep/img/x4GW0OJaN-pV8-K_b4RTSFioW6U=/fit-in/246x300/filters:strip_icc()/pic2286966.jpg',
-    image: '',
-  };
+const ListItem: React.FC<ListItemProps> = ({
+  userBoardGame,
+  isLogin,
+  getBoardGame,
+}) => {
+  const { data: boardGame, isLoading } = useQuery(
+    `/boardgame/${userBoardGame.id}`,
+    () => getBoardGame(userBoardGame.id)
+  );
 
   return (
     <Flex justify="center" align="center" mb={3}>
@@ -41,20 +35,20 @@ const ListItem: React.FC<ListItemProps> = ({ userBoardGame, isLogin }) => {
           boxSize="4rem"
           borderRadius="md"
           objectFit="cover"
-          src={boardGame.thumbnail}
-          alt={`${boardGame.name} thumbnail`}
+          src={boardGame?.thumbnail}
+          alt={`${boardGame?.name} thumbnail`}
         />
       </Skeleton>
       <Box ml={3} flex={1}>
         <Skeleton isLoaded={!isLoading}>
           <Text as="b" fontSize="sm" noOfLines={1}>
-            {boardGame.koreanName || boardGame.name}
+            {boardGame?.koreanName || boardGame?.name}
           </Text>
         </Skeleton>
         <Box>
           <SkeletonText isLoaded={!isLoading} noOfLines={1}>
             <Text fontSize="xs">
-              {boardGame.minPlayerNum}-{boardGame.maxPlayerNum} Players
+              {boardGame?.minPlayerNum}-{boardGame?.maxPlayerNum} Players
             </Text>
           </SkeletonText>
           <ButtonGroup spacing={2}>
