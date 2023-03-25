@@ -24,13 +24,12 @@ const getBoardGamesInfo = async (ids: string[]): Promise<BoardGameResponse[]> =>
   return nodes.boardgames.boardgame;
 };
 
-interface ReqParams {}
-interface ReqBody {}
-interface ResBody {}
-interface ReqQuery {
-  keyword: string;
+interface KeywordRequest extends Request {
+  query: {
+    keyword: string;
+  }
 }
-router.get('/', async (req: Request<ReqParams, ReqBody, ResBody, ReqQuery>, res) => {
+router.get('/', async (req: KeywordRequest, res) => {
   const {keyword} = req.query;
   const ids = await getBoardGameIds(keyword);
   if (!ids) {
@@ -39,6 +38,7 @@ router.get('/', async (req: Request<ReqParams, ReqBody, ResBody, ReqQuery>, res)
   }
   const boardGameResponse = await getBoardGamesInfo(ids);
   const boardGameList = Array.isArray(boardGameResponse) ? boardGameResponse : [boardGameResponse];
+
   const boardGames = boardGameList.map(toBoardGame);
 
   boardGames.map(boardGame => db.collection('boardgames').doc(boardGame.id).set(boardGame));

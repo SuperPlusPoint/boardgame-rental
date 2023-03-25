@@ -28,7 +28,7 @@ export const toBoardGame = (boardGameResponse: BoardGameResponse): BoardGame => 
     age: {
       _text: age,
     },
-    name: nameCandidates,
+    name: nameCandidate,
     thumbnail: {
       _text: thumbnail,
     },
@@ -37,6 +37,7 @@ export const toBoardGame = (boardGameResponse: BoardGameResponse): BoardGame => 
     },
   } = boardGameResponse;
 
+  const nameCandidates = Array.isArray(nameCandidate) ? nameCandidate : [nameCandidate];
   const name = nameCandidates.find(({_attributes}) => Boolean(_attributes.primary))?._text || '';
   const koreanName = nameCandidates.find(({_text}) => isKorean(_text))?._text;
   return {

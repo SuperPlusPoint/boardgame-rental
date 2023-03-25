@@ -9,6 +9,13 @@ export interface Text {
   _text: string;
 }
 
+interface Name {
+  _attributes: {
+    primary?: string;
+    sortindex: string;
+  }
+  _text: string;
+}
 export interface BoardGameResponse {
   _attributes: {
     objectid: string;
@@ -20,13 +27,7 @@ export interface BoardGameResponse {
   minplaytime: Text;
   maxplaytime: Text;
   age: Text;
-  name: {
-    _attributes: {
-      primary?: string;
-      sortindex: string;
-    }
-    _text: string;
-  }[]
+  name: Name[] | Name;
   descriptions: string;
   thumbnail: Text;
   image: Text;

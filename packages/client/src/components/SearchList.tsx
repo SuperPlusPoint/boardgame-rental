@@ -13,7 +13,13 @@ const SearchList: React.FC<SearchListProps> = ({
   selectBoardGame,
 }) => {
   return (
-    <Flex w="100%" flexDirection="column" mr="auto">
+    <Flex
+      w="100%"
+      flexDirection="column"
+      mr="auto"
+      maxHeight="48vh"
+      overflow="scroll"
+    >
       <Accordion mt={3}>
         {boardGameList.map((boardGame) => (
           <SearchItem
