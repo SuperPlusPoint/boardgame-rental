@@ -28,6 +28,7 @@
     "react/jsx-uses-react": "off",
     "react/jsx-props-no-spreading": "warn",
     "react/no-unescaped-entities": "off",
+    "react/require-default-props": "off",
     "import/prefer-default-export": "off",
     "react/function-component-definition": [
       2,

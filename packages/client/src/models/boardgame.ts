@@ -15,6 +15,8 @@ export interface BoardGame {
 
 export interface UserBoardGame {
   id: string;
+  name: string;
+  thumbnail: string;
   total: number;
   rental: number;
 }

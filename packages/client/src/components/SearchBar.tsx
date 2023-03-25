@@ -1,16 +1,10 @@
 import { useState } from 'react';
-import {
-  FormControl,
-  FormLabel,
-  Box,
-  Input,
-  IconButton,
-} from '@chakra-ui/react';
+import { FormControl, Box, Input, IconButton } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-interface SearchBarProps {
+type SearchBarProps = {
   onSearch: (val: string) => void;
-}
+};
 
 const SearchBar = ({ onSearch }: SearchBarProps) => {
   const [value, setValue] = useState('');
@@ -20,17 +14,18 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
   };
 
   return (
-    <FormControl>
-      <Box display="flex" gap={3} mt={9} mx={9}>
-        <FormLabel />
+    <FormControl w="100%">
+      <Box display="flex" gap={2} my={3}>
         <Input
           placeholder="검색"
-          size="md"
+          size="sm"
+          borderRadius="md"
           variant="outline"
           type="text"
           onChange={handleValue}
         />
         <IconButton
+          size="sm"
           color="white"
           colorScheme="blue"
           aria-label="Search"
