@@ -2,7 +2,12 @@
   "name": "boardgame-rental",
   "version": "0.1.0",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": {
+    "packages":["packages/*"],
+    "nohoist": [
+      "functions/**/*"
+    ]
+  },
   "scripts": {
     "start": "yarn workspace client run start",
     "build": "yarn workspace client run build",
@@ -10,6 +15,7 @@
     "eject": "yarn workspace client run eject",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspace client run lint:fix",
+    "cl": "yarn workspace client",
     "fb": "yarn workspace functions"
   },
   "eslintConfig": {
