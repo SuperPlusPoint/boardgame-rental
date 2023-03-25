@@ -13,9 +13,13 @@ import { UserBoardGame } from '../models/boardgame';
 
 interface SelectedListProps {
   selectedList: UserBoardGame[];
+  changeTotal: (boarGame: UserBoardGame, total: number) => void;
 }
 
-const SelectedList: React.FC<SelectedListProps> = ({ selectedList }) => {
+const SelectedList: React.FC<SelectedListProps> = ({
+  selectedList,
+  changeTotal,
+}) => {
   return (
     <Box pos="fixed" bottom="7rem" w="85%" maxHeight="23vh" overflow="scroll">
       <TableContainer whiteSpace="normal" wordBreak="break-word">
@@ -28,7 +32,11 @@ const SelectedList: React.FC<SelectedListProps> = ({ selectedList }) => {
           </Thead>
           <Tbody>
             {selectedList.map((item) => (
-              <SelectedItem key={item.id} item={item} />
+              <SelectedItem
+                key={item.id}
+                item={item}
+                changeTotal={changeTotal}
+              />
             ))}
           </Tbody>
         </Table>

@@ -23,6 +23,11 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
           variant="outline"
           type="text"
           onChange={handleValue}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              onSearch(value);
+            }
+          }}
         />
         <IconButton
           size="sm"

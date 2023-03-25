@@ -1,24 +1,30 @@
 import * as React from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Flex, Heading, Box, Button } from '@chakra-ui/react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import SelectedList from '../components/SelectedList';
 import SearchList from '../components/SearchList';
-import { UserBoardGame } from '../models/boardgame';
 import { useBoardGame } from '../hooks/useBoardGame';
+import { useUserBoardGame } from '../hooks/useUserBoardGame';
+import { useAuthContext } from '../AuthProvider';
 
 const ListAdd = () => {
-  const { searchedBoardGameList, searchBoardGame } = useBoardGame();
-  const selectedList: UserBoardGame[] = [
-    {
-      id: '1',
-      name: '루미큐브',
-      thumbnail:
-        'https://cf.geekdo-images.com/LeaLDlTTmeN639MfuflcMw__itemrep/img/x4GW0OJaN-pV8-K_b4RTSFioW6U=/fit-in/246x300/filters:strip_icc()/pic2286966.jpg',
-      total: 0,
-      rental: 0,
-    },
-  ];
+  const { user } = useAuthContext();
+  const {
+    searchedBoardGameList,
+    selectedBoardGameList,
+    searchBoardGame,
+    selectBoardGame,
+    changeTotal,
+  } = useBoardGame();
+  const { addBoardGames } = useUserBoardGame(user?.uid || 'no-login');
+  const navigate = useNavigate();
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <>
       <Header isLogin />
@@ -37,8 +43,14 @@ const ListAdd = () => {
           </Heading>
           <SearchBar onSearch={(value) => searchBoardGame(value)} />
         </Box>
-        <SearchList boardGameList={searchedBoardGameList} />
-        <SelectedList selectedList={selectedList} />
+        <SearchList
+          boardGameList={searchedBoardGameList}
+          selectBoardGame={selectBoardGame}
+        />
+        <SelectedList
+          selectedList={selectedBoardGameList}
+          changeTotal={changeTotal}
+        />
         <Button
           size="md"
           pos="fixed"
@@ -46,6 +58,11 @@ const ListAdd = () => {
           width="60%"
           colorScheme="blue"
           my={9}
+          onClick={() =>
+            addBoardGames(selectedBoardGameList).then(() =>
+              navigate('/setting')
+            )
+          }
         >
           추가하기
         </Button>
