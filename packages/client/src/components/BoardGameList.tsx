@@ -7,11 +7,15 @@ interface BoardGameListProps {
   boardGameList: UserBoardGame[];
   isLogin: boolean;
   getBoardGame: (bid: string) => Promise<BoardGame>;
+  rentBoardGame: (bid: string) => Promise<void>;
+  returnBoardGame: (bid: string) => Promise<void>;
 }
 const BoardGameList: React.FC<BoardGameListProps> = ({
   boardGameList,
   isLogin,
   getBoardGame,
+  rentBoardGame,
+  returnBoardGame,
 }) => {
   return (
     <Box w="100%" maxHeight="68vh" overflow="scroll" mt={2}>
@@ -21,6 +25,8 @@ const BoardGameList: React.FC<BoardGameListProps> = ({
           userBoardGame={boardGame}
           isLogin={isLogin}
           getBoardGame={getBoardGame}
+          rentBoardGame={rentBoardGame}
+          returnBoardGame={returnBoardGame}
         />
       ))}
     </Box>

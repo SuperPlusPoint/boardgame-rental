@@ -16,12 +16,16 @@ interface ListItemProps {
   userBoardGame: UserBoardGame;
   getBoardGame: (bid: string) => Promise<BoardGame>;
   isLogin: boolean;
+  rentBoardGame: (bid: string) => Promise<void>;
+  returnBoardGame: (bid: string) => Promise<void>;
 }
 
 const ListItem: React.FC<ListItemProps> = ({
   userBoardGame,
   isLogin,
   getBoardGame,
+  rentBoardGame,
+  returnBoardGame,
 }) => {
   const { data: boardGame, isLoading } = useQuery(
     `/boardgame/${userBoardGame.id}`,
@@ -54,10 +58,20 @@ const ListItem: React.FC<ListItemProps> = ({
           <ButtonGroup spacing={2}>
             {isLogin ? (
               <>
-                <Button size="xs" colorScheme="blue">
+                <Button
+                  size="xs"
+                  colorScheme="blue"
+                  isDisabled={userBoardGame.rental === userBoardGame.total}
+                  onClick={() => rentBoardGame(userBoardGame.id)}
+                >
                   대여 하기
                 </Button>
-                <Button size="xs" colorScheme="red">
+                <Button
+                  size="xs"
+                  colorScheme="red"
+                  isDisabled={userBoardGame.rental < 1}
+                  onClick={() => returnBoardGame(userBoardGame.id)}
+                >
                   반납 하기
                 </Button>
               </>
@@ -68,7 +82,7 @@ const ListItem: React.FC<ListItemProps> = ({
                   userBoardGame.rental < userBoardGame.total ? 'blue' : 'red'
                 }
               >
-                대여{' '}
+                대여
                 {userBoardGame.rental < userBoardGame.total ? '가능' : '불가'}
               </Button>
             )}

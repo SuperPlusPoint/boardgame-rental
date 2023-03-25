@@ -39,7 +39,7 @@ export const useUserBoardGame = (userId: string) => {
     }
   );
 
-  const { data = [] } = useQuery(
+  const { data = [], refetch } = useQuery(
     `${userId}/boardgames`,
     async () => {
       const snapshot = await getDocs(userBoardGameCollection);
@@ -65,16 +65,17 @@ export const useUserBoardGame = (userId: string) => {
   }, [data, filter]);
 
   const addBoardGames = useCallback(
-    (list: UserBoardGame[]) => {
+    async (list: UserBoardGame[]) => {
       const batch = writeBatch(db);
       list.forEach((boardGame) => {
         if (boardGame.total > 0) {
           batch.set(doc(userBoardGameCollection, boardGame.id), boardGame);
         }
       });
-      return batch.commit();
+      await batch.commit();
+      refetch();
     },
-    [userBoardGameCollection]
+    [userBoardGameCollection, refetch]
   );
 
   const updateBoardGame = useCallback(
@@ -83,15 +84,17 @@ export const useUserBoardGame = (userId: string) => {
         rental,
         total,
       });
+      refetch();
     },
-    [userBoardGameCollection]
+    [userBoardGameCollection, refetch]
   );
 
   const deleteBoardGame = useCallback(
     (boardGameId: string) => {
       deleteDoc(doc(userBoardGameCollection, boardGameId));
+      refetch();
     },
-    [userBoardGameCollection]
+    [userBoardGameCollection, refetch]
   );
 
   const getBoardGame = useCallback(async (bid: string) => {
@@ -104,21 +107,23 @@ export const useUserBoardGame = (userId: string) => {
   }, []);
 
   const rentBoardGame = useCallback(
-    (boardGameId: string) => {
-      updateDoc(doc(userBoardGameCollection, boardGameId), {
+    async (boardGameId: string) => {
+      await updateDoc(doc(userBoardGameCollection, boardGameId), {
         rental: increment(1),
       });
+      refetch();
     },
-    [userBoardGameCollection]
+    [userBoardGameCollection, refetch]
   );
 
   const returnBoardGame = useCallback(
-    (boardGameId: string) => {
-      updateDoc(doc(userBoardGameCollection, boardGameId), {
+    async (boardGameId: string) => {
+      await updateDoc(doc(userBoardGameCollection, boardGameId), {
         rental: increment(-1),
       });
+      refetch();
     },
-    [userBoardGameCollection]
+    [userBoardGameCollection, refetch]
   );
 
   return {
