@@ -23,6 +23,7 @@
   },
   "ignorePatterns": ["build"],
   "plugins": ["react", "@typescript-eslint", "prettier"],
+  "ignorePatterns": ["build"],
   "rules": {
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "react/react-in-jsx-scope": "off",
