@@ -21,7 +21,7 @@ const Login = () => {
             to={`https://kauth.kakao.com/oauth/authorize?client_id=${
               process.env.REACT_APP_KAKAO_CLIENT_ID
             }&redirect_uri=${encodeURIComponent(
-              'http://localhost:3000/login/kakao'
+              process.env.REACT_APP_REDIRECT_URI || ''
             )}&response_type=code`}
           >
             <IconButton
