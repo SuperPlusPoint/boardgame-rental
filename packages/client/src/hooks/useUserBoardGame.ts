@@ -8,7 +8,7 @@ import {
   updateDoc,
   writeBatch,
 } from 'firebase/firestore';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { db } from '../firebase';
 import { BoardGame, UserBoardGame } from '../models/boardgame';
@@ -78,16 +78,56 @@ export const useUserBoardGame = (userId: string) => {
     [userBoardGameCollection, refetch]
   );
 
+  const [allSettingBoardGames, setSettingBoardGames] = useState<
+    UserBoardGame[]
+  >([]);
+
+  useEffect(() => {
+    setSettingBoardGames(data);
+  }, [data]);
+
+  const settingBoardGames = useMemo(() => {
+    return allSettingBoardGames.filter(({ id }) =>
+      boardGames.find((b) => b.id === id)
+    );
+  }, [boardGames, allSettingBoardGames]);
+
   const updateBoardGame = useCallback(
     (boardGameId: string, rental: number, total: number) => {
-      updateDoc(doc(userBoardGameCollection, boardGameId), {
-        rental,
-        total,
+      setSettingBoardGames((prev) => {
+        const index = prev.findIndex(({ id }) => id === boardGameId);
+        if (index === -1) {
+          return [...prev];
+        }
+        return [
+          ...prev.slice(0, index),
+          {
+            ...prev[index],
+            rental,
+            total,
+          },
+          ...prev.slice(index + 1),
+        ];
       });
-      refetch();
     },
-    [userBoardGameCollection, refetch]
+    []
   );
+
+  const saveBoardGames = useCallback(async () => {
+    const batch = writeBatch(db);
+    settingBoardGames.forEach((boardGame) => {
+      if (boardGame.total > 0) {
+        batch.update(doc(userBoardGameCollection, boardGame.id), {
+          rental: boardGame.rental,
+          total: boardGame.total,
+        });
+      } else {
+        batch.delete(doc(userBoardGameCollection, boardGame.id));
+      }
+    });
+    await batch.commit();
+    refetch();
+  }, [userBoardGameCollection, refetch, settingBoardGames]);
 
   const deleteBoardGame = useCallback(
     (boardGameId: string) => {
@@ -129,10 +169,12 @@ export const useUserBoardGame = (userId: string) => {
   return {
     user,
     boardGames,
+    settingBoardGames,
     setFilter,
     getBoardGame,
     addBoardGames,
     updateBoardGame,
+    saveBoardGames,
     deleteBoardGame,
     rentBoardGame,
     returnBoardGame,
