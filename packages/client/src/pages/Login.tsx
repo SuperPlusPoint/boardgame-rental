@@ -7,7 +7,7 @@ const Login = () => {
   return (
     <>
       <Header />
-      <Flex flexDirection="column" align="center" mt="3.5rem">
+      <Flex flexDirection="column" mt="3.5rem" textAlign="center">
         <Heading as="h2" size="xl" my="9rem">
           로그인
         </Heading>
@@ -19,11 +19,12 @@ const Login = () => {
           )}&response_type=code`}
         >
           <IconButton
+            w="70%"
             aria-label="kakaologin"
             icon={
               <img
-                src="/imges/kakao_login_medium_wide.png"
-                alt="/imges/kakao_login_medium_wide.png"
+                src="/imges/kakao_login_large_wide.png"
+                alt="/imges/kakao_login_large_wide.png"
               />
             }
           />

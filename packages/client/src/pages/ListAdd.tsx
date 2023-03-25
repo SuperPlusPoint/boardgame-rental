@@ -13,6 +13,7 @@ const ListAdd = () => {
   const { user } = useAuthContext();
   const {
     isLoading,
+    isFetched,
     searchedBoardGameList,
     selectedBoardGameList,
     searchBoardGame,
@@ -41,6 +42,7 @@ const ListAdd = () => {
         </Box>
         <SearchList
           isLoading={isLoading}
+          isFetched={isFetched}
           boardGameList={searchedBoardGameList}
           selectBoardGame={selectBoardGame}
         />

@@ -6,6 +6,7 @@ import {
   MenuList,
   MenuItem,
   IconButton,
+  useToast,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -20,6 +21,7 @@ import { useAuthContext } from '../AuthProvider';
 
 const Header = () => {
   const { user, logout } = useAuthContext();
+  const toast = useToast();
   return (
     <Box pos="fixed" zIndex={10} top="0" w="100%" p={2}>
       <Menu>
@@ -40,7 +42,18 @@ const Header = () => {
             </Link>
           ) : (
             <Link to="/">
-              <MenuItem icon={<UnlockIcon />} onClick={() => logout()}>
+              <MenuItem
+                icon={<UnlockIcon />}
+                onClick={() => {
+                  toast({
+                    title: '로그아웃 되었습니다.',
+                    status: 'success',
+                    duration: 1000,
+                    isClosable: true,
+                  });
+                  logout();
+                }}
+              >
                 LogOut
               </MenuItem>
             </Link>

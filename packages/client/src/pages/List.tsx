@@ -13,6 +13,7 @@ const List = () => {
   const { userId } = useParams();
   const {
     user: { uid, name },
+    filter,
     boardGames,
     getBoardGame,
     rentBoardGame,
@@ -37,7 +38,7 @@ const List = () => {
             <Highlight query={name} styles={{ color: '#3182ce' }}>
               {name}
             </Highlight>
-            님의 보드게임 목록
+            님의{name.length > 7 ? <br /> : ' '}보드게임 목록
           </Heading>
           <SearchBar onSearch={(value) => setFilter(value)} />
         </Box>
@@ -47,6 +48,7 @@ const List = () => {
           getBoardGame={getBoardGame}
           rentBoardGame={rentBoardGame}
           returnBoardGame={returnBoardGame}
+          filter={filter}
         />
         <ShareButton />
       </Flex>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, Heading, Box, Button } from '@chakra-ui/react';
+import { Flex, Heading, Box, Button, useToast } from '@chakra-ui/react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import EditableBoardGameList from '../components/EditableBoardGameList';
@@ -8,9 +8,14 @@ import { useUserBoardGame } from '../hooks/useUserBoardGame';
 
 const Setting = () => {
   const { user } = useAuthContext();
-  const { settingBoardGames, setFilter, updateBoardGame, saveBoardGames } =
-    useUserBoardGame(user?.uid || 'no-login');
-
+  const {
+    settingBoardGames,
+    filter,
+    setFilter,
+    updateBoardGame,
+    saveBoardGames,
+  } = useUserBoardGame(user?.uid || 'no-login');
+  const toast = useToast();
   return (
     <>
       <Header />
@@ -32,6 +37,7 @@ const Setting = () => {
         <EditableBoardGameList
           boardGameList={settingBoardGames}
           updateBoardGame={updateBoardGame}
+          filter={filter}
         />
         <Button
           size="md"
@@ -40,7 +46,15 @@ const Setting = () => {
           width="60%"
           colorScheme="blue"
           my={2}
-          onClick={() => saveBoardGames()}
+          onClick={() => {
+            toast({
+              title: '저장되었습니다.',
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+            });
+            saveBoardGames();
+          }}
         >
           저장하기
         </Button>
