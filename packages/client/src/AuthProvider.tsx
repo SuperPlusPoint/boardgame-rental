@@ -1,9 +1,10 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
+import { useAuth } from './hooks/useAuth';
 import { User } from './models/user';
 
 const defaultAction = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  login: (loginUser: User) => {},
+  login: (code: string) => Promise.resolve({ uid: '' }),
   logout: () => {},
 };
 
@@ -22,10 +23,7 @@ export const useAuthContext = () => {
 };
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-
-  const login = useCallback((loginUser: User) => setUser(loginUser), [setUser]);
-  const logout = useCallback(() => setUser(null), [setUser]);
+  const { user, login, logout } = useAuth();
 
   const action = useMemo(
     () => ({
