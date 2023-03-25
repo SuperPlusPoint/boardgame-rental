@@ -55,10 +55,30 @@ export const useBoardGame = () => {
     });
   }, []);
 
+  const changeTotal = useCallback((boardGame: UserBoardGame, total: number) => {
+    setSelectedBoardGameList((prevBoardGameList) => {
+      const index = prevBoardGameList.findIndex(
+        ({ id }) => id === boardGame.id
+      );
+      if (index === -1) {
+        return [...prevBoardGameList];
+      }
+      return [
+        ...prevBoardGameList.slice(0, index),
+        {
+          ...prevBoardGameList[index],
+          total: Math.max(0, total),
+        },
+        ...prevBoardGameList.slice(index + 1),
+      ];
+    });
+  }, []);
+
   return {
     searchedBoardGameList,
     selectedBoardGameList,
     searchBoardGame,
     selectBoardGame,
+    changeTotal,
   };
 };

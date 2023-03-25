@@ -5,8 +5,9 @@ import NumericInput from './NumericInput';
 
 interface SelectedItemProps {
   item: UserBoardGame;
+  changeTotal: (boarGame: UserBoardGame, total: number) => void;
 }
-const SelectedItem: React.FC<SelectedItemProps> = ({ item }) => {
+const SelectedItem: React.FC<SelectedItemProps> = ({ item, changeTotal }) => {
   return (
     <Tr>
       <Td>
@@ -15,7 +16,10 @@ const SelectedItem: React.FC<SelectedItemProps> = ({ item }) => {
         </Text>
       </Td>
       <Td>
-        <NumericInput value={item.total} />
+        <NumericInput
+          value={item.total}
+          onChange={(value) => changeTotal(item, value)}
+        />
       </Td>
     </Tr>
   );

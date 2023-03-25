@@ -12,6 +12,7 @@ const ListAdd = () => {
     selectedBoardGameList,
     searchBoardGame,
     selectBoardGame,
+    changeTotal,
   } = useBoardGame();
 
   return (
@@ -36,7 +37,10 @@ const ListAdd = () => {
           boardGameList={searchedBoardGameList}
           selectBoardGame={selectBoardGame}
         />
-        <SelectedList selectedList={selectedBoardGameList} />
+        <SelectedList
+          selectedList={selectedBoardGameList}
+          changeTotal={changeTotal}
+        />
         <Button
           size="md"
           pos="fixed"
