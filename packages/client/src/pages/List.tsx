@@ -13,6 +13,7 @@ const List = () => {
   const { userId } = useParams();
   const {
     user: { uid, name },
+    filter,
     boardGames,
     getBoardGame,
     rentBoardGame,
@@ -47,6 +48,7 @@ const List = () => {
           getBoardGame={getBoardGame}
           rentBoardGame={rentBoardGame}
           returnBoardGame={returnBoardGame}
+          filter={filter}
         />
         <ShareButton />
       </Flex>

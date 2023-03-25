@@ -8,8 +8,13 @@ import { useUserBoardGame } from '../hooks/useUserBoardGame';
 
 const Setting = () => {
   const { user } = useAuthContext();
-  const { settingBoardGames, setFilter, updateBoardGame, saveBoardGames } =
-    useUserBoardGame(user?.uid || 'no-login');
+  const {
+    settingBoardGames,
+    filter,
+    setFilter,
+    updateBoardGame,
+    saveBoardGames,
+  } = useUserBoardGame(user?.uid || 'no-login');
   const toast = useToast();
   return (
     <>
@@ -32,6 +37,7 @@ const Setting = () => {
         <EditableBoardGameList
           boardGameList={settingBoardGames}
           updateBoardGame={updateBoardGame}
+          filter={filter}
         />
         <Button
           size="md"

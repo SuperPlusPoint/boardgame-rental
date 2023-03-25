@@ -6,6 +6,7 @@ import { BoardGame, UserBoardGame } from '../models/boardgame';
 interface BoardGameListProps {
   boardGameList: UserBoardGame[];
   isLogin: boolean;
+  filter: string;
   getBoardGame: (bid: string) => Promise<BoardGame>;
   rentBoardGame: (boardGame: UserBoardGame) => Promise<void>;
   returnBoardGame: (boardGame: UserBoardGame) => Promise<void>;
@@ -13,6 +14,7 @@ interface BoardGameListProps {
 const BoardGameList: React.FC<BoardGameListProps> = ({
   boardGameList,
   isLogin,
+  filter,
   getBoardGame,
   rentBoardGame,
   returnBoardGame,
@@ -20,9 +22,15 @@ const BoardGameList: React.FC<BoardGameListProps> = ({
   return (
     <Box w="100%" maxHeight="68vh" overflow="scroll" mt={2}>
       {boardGameList.length === 0 ? (
-        <Text mt={5} textAlign="center">
-          보드게임을 추가해주세요.
-        </Text>
+        filter.length !== 0 ? (
+          <Text mt={5} textAlign="center">
+            검색 결과가 없습니다.
+          </Text>
+        ) : (
+          <Text mt={5} textAlign="center">
+            보드게임을 추가해주세요.
+          </Text>
+        )
       ) : (
         boardGameList.map((boardGame) => (
           <ListItem

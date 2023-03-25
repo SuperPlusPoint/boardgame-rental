@@ -169,6 +169,7 @@ export const useUserBoardGame = (userId: string) => {
     user,
     boardGames,
     settingBoardGames,
+    filter,
     setFilter,
     getBoardGame,
     addBoardGames,
