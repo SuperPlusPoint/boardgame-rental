@@ -5,7 +5,7 @@ import Header from '../components/Header';
 
 const NotFound = () => (
   <>
-    <Header isLogin />
+    <Header />
     <Flex
       h="70vh"
       flexDirection="column"

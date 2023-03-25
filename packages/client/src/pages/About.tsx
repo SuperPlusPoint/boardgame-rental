@@ -5,7 +5,7 @@ import Header from '../components/Header';
 const About = () => {
   return (
     <>
-      <Header isLogin />
+      <Header />
       <Flex flexDirection="column" align="center" mt="3.5rem">
         <Heading as="h2" size="xl" mt={9}>
           서비스 소개

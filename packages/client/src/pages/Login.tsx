@@ -6,7 +6,7 @@ import Header from '../components/Header';
 const Login = () => {
   return (
     <>
-      <Header isLogin={false} />
+      <Header />
       <Flex flexDirection="column" align="center" mt="3.5rem">
         <Heading as="h2" size="xl" my="9rem">
           로그인

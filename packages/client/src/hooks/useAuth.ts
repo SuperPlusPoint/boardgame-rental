@@ -68,23 +68,33 @@ const getUser = async (userId: string): Promise<User | null> => {
 export const useAuth = () => {
   const [userId, setUserId] = useState<number | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
+    setIsLoading(true);
     const accessToken = localStorage.getItem('access_token');
     const refreshToken = localStorage.getItem('refresh_token');
 
-    loginCheck(accessToken, refreshToken).then((id) => setUserId(id));
+    loginCheck(accessToken, refreshToken).then((id) => {
+      if (!id) {
+        setIsLoading(false);
+      }
+      setUserId(id);
+    });
   }, []);
 
   useEffect(() => {
     if (!userId) {
       return;
     }
-    getUser(`${userId}`).then((u) => setUser(u));
+    getUser(`${userId}`)
+      .then((u) => setUser(u))
+      .then(() => setIsLoading(false));
   }, [userId]);
 
   const login = useCallback(async (code: string) => {
+    setIsLoading(true);
     const {
       data: { access_token: accessToken, refresh_token: refreshToken },
     } = await axios.post(
@@ -113,6 +123,7 @@ export const useAuth = () => {
     localStorage.setItem('access_token', accessToken);
     localStorage.setItem('refresh_token', refreshToken);
     setUser(data as User);
+    setIsLoading(false);
     return data;
   }, []);
 
@@ -125,10 +136,12 @@ export const useAuth = () => {
     });
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+    setUser(null);
   }, []);
 
   return {
     user,
+    isLoading,
     login,
     logout,
   };
