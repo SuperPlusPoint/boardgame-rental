@@ -9,7 +9,7 @@ const router = express.Router();
 const client = axios.create({baseURL: 'https://api.geekdo.com'});
 
 const getBoardGameIds = async (keyword: string): Promise<string[] | null> => {
-  const {data} = await client.get(`/xmlapi/search?search=${keyword}`);
+  const {data} = await client.get(`/xmlapi/search?search=${keyword}`).catch(() => ({data: ''}));
   const {boardgames} = JSON.parse(parser.xml2json(data, {compact: true})) as BoardgameSearchResponse;
   if (!boardgames.boardgame) {
     return null;
