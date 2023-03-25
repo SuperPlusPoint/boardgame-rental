@@ -17,7 +17,11 @@ export const useBoardGame = () => {
     UserBoardGame[]
   >([]);
 
-  const { data: searchedBoardGameList = [], isLoading } = useQuery(
+  const {
+    data: searchedBoardGameList = [],
+    isLoading,
+    isFetched,
+  } = useQuery(
     `/search/${keyword}`,
     async () => {
       const { data } = await axios.get(
@@ -76,6 +80,7 @@ export const useBoardGame = () => {
 
   return {
     isLoading,
+    isFetched,
     searchedBoardGameList,
     selectedBoardGameList,
     searchBoardGame,

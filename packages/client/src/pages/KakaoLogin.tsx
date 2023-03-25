@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { Spinner } from '@chakra-ui/react';
+import { Flex, Spinner } from '@chakra-ui/react';
 import { useAuthContext } from '../AuthProvider';
 
 const KakaoLogin = () => {
@@ -21,7 +21,19 @@ const KakaoLogin = () => {
     });
   }, [code, login, navigate]);
 
-  return <Spinner />;
+  return (
+    <Flex pos="relative" justify="center" height="100vh">
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+        pos="absolute"
+        top="50%"
+      />
+    </Flex>
+  );
 };
 
 export default KakaoLogin;
