@@ -13,9 +13,10 @@ import { BoardGame } from '../models/boardgame';
 
 interface SearchItemProps {
   boardGame: BoardGame;
+  onSelect: (boardGame: BoardGame) => void;
 }
 
-const SearchItem: React.FC<SearchItemProps> = ({ boardGame }) => {
+const SearchItem: React.FC<SearchItemProps> = ({ boardGame, onSelect }) => {
   return (
     <AccordionItem>
       <h2>
@@ -26,7 +27,7 @@ const SearchItem: React.FC<SearchItemProps> = ({ boardGame }) => {
           <AccordionIcon />
         </AccordionButton>
       </h2>
-      <AccordionPanel pb={4}>
+      <AccordionPanel pb={4} onClick={() => onSelect(boardGame)}>
         <UnorderedList
           fontSize="sm"
           display="flex"
