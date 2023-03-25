@@ -78,13 +78,19 @@ export const useUserBoardGame = (userId: string) => {
     [userBoardGameCollection, refetch]
   );
 
-  const [settingBoardGames, setSettingBoardGames] = useState<UserBoardGame[]>(
-    []
-  );
+  const [allSettingBoardGames, setSettingBoardGames] = useState<
+    UserBoardGame[]
+  >([]);
 
   useEffect(() => {
-    setSettingBoardGames(boardGames);
-  }, [boardGames]);
+    setSettingBoardGames(data);
+  }, [data]);
+
+  const settingBoardGames = useMemo(() => {
+    return allSettingBoardGames.filter(({ id }) =>
+      boardGames.find((b) => b.id === id)
+    );
+  }, [boardGames, allSettingBoardGames]);
 
   const updateBoardGame = useCallback(
     (boardGameId: string, rental: number, total: number) => {
