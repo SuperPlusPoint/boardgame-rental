@@ -6,7 +6,7 @@ import { useAuthContext } from '../AuthProvider';
 const About = () => {
   const { user } = useAuthContext();
   return (
-    <Flex flexDirection="column" align="center" mt="3.5rem">
+    <Flex flexDirection="column" align="center">
       <Heading as="h2" size="xl" mt={9}>
         서비스 소개
       </Heading>

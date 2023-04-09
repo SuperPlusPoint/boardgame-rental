@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
-    <Flex flexDirection="column" mt="3.5rem" textAlign="center">
+    <Flex flexDirection="column" textAlign="center">
       <Heading as="h2" size="xl" my="9rem">
         로그인
       </Heading>

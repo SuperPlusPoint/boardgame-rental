@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
 import { Flex, Heading, Highlight, Box } from '@chakra-ui/react';
 import SearchBar from '../components/SearchBar';
 import BoardGameList from '../components/BoardGameList';
 import ShareButton from '../components/ShareButton';
 import { useAuthContext } from '../AuthProvider';
 import { useUserBoardGame } from '../hooks/useUserBoardGame';
+import { useListParams } from '../hooks/useListParams';
 
 const List = () => {
   const { user } = useAuthContext();
-  const { userId } = useParams();
+  const { userId } = useListParams();
   const {
     user: { uid, name },
     filter,
@@ -23,7 +23,6 @@ const List = () => {
   return (
     <Flex
       pos="relative"
-      top="3.5rem"
       h="100%"
       flexDirection="column"
       justify="center"

@@ -3,13 +3,7 @@ import { Flex, Heading, Button } from '@chakra-ui/react';
 import { WarningIcon } from '@chakra-ui/icons';
 
 const NotFound = () => (
-  <Flex
-    h="70vh"
-    flexDirection="column"
-    justify="center"
-    alignItems="center"
-    mt="3.5rem"
-  >
+  <Flex h="70vh" flexDirection="column" justify="center" alignItems="center">
     <Heading as="h2" size="xl">
       <WarningIcon w={10} h={10} color="red.500" mb={4} />
       <br />

@@ -18,6 +18,7 @@ const Router = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/login/kakao" element={<KakaoLogin />} />
           <Route element={<PrivateRouter />}>
+            <Route path="/list" element={<List />} />
             <Route path="/setting" element={<Setting />} />
             <Route path="/list/add" element={<ListAdd />} />
           </Route>

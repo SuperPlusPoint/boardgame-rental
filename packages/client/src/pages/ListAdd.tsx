@@ -25,7 +25,6 @@ const ListAdd = () => {
   return (
     <Flex
       pos="relative"
-      top="3.5rem"
       flexDirection="column"
       justify="center"
       align="center"

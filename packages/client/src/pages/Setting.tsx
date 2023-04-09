@@ -18,7 +18,6 @@ const Setting = () => {
   return (
     <Flex
       pos="relative"
-      top="3.5rem"
       h="100%"
       flexDirection="column"
       justify="center"
