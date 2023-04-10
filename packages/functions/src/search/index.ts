@@ -36,6 +36,7 @@ router.get('/', async (req: KeywordRequest, res) => {
     res.json([]);
     return;
   }
+
   const boardGameResponse = await getBoardGamesInfo(ids);
   const boardGameList = Array.isArray(boardGameResponse) ? boardGameResponse : [boardGameResponse];
 

@@ -38,8 +38,9 @@ const SearchItem: React.FC<SearchItemProps> = ({ boardGame, onSelect }) => {
             boxSize="4rem"
             borderRadius="md"
             objectFit="cover"
-            src={boardGame.thumbnail}
+            src={boardGame?.thumbnail}
             alt={`${boardGame.name} thumbnail`}
+            fallbackSrc="https://via.placeholder.com/64"
           />
           <Box ml={5}>
             <ListItem>

@@ -42,6 +42,7 @@ const ListItem: React.FC<ListItemProps> = ({
           objectFit="cover"
           src={boardGame?.thumbnail}
           alt={`${boardGame?.name} thumbnail`}
+          fallbackSrc="https://via.placeholder.com/64"
         />
       </Skeleton>
       <Box ml={3} flex={1}>
