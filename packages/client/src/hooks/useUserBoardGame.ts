@@ -4,6 +4,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  serverTimestamp,
   updateDoc,
   writeBatch,
 } from 'firebase/firestore';
@@ -17,6 +18,7 @@ const defaultUser = {
   name: '',
   boardGameList: [],
 };
+
 export const useUserBoardGame = (userId: string) => {
   const userRef = useMemo(() => doc(db, 'users', userId), [userId]);
   const userBoardGameCollection = useMemo(
@@ -78,7 +80,10 @@ export const useUserBoardGame = (userId: string) => {
       const batch = writeBatch(db);
       list.forEach((boardGame) => {
         if (boardGame.total > 0) {
-          batch.set(doc(userBoardGameCollection, boardGame.id), boardGame);
+          batch.set(doc(userBoardGameCollection, boardGame.id), {
+            ...boardGame,
+            created: serverTimestamp(),
+          });
         }
       });
       await batch.commit();

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Image, Box, Text } from '@chakra-ui/react';
+import { Flex, Image, Box, Text, Badge } from '@chakra-ui/react';
 import { UserBoardGame } from '../models/boardgame';
 import NumericInput from './NumericInput';
+import { isNew } from '../utils/timestamp';
 
 interface EditableListItemProps {
   userBoardGame: UserBoardGame;
@@ -30,6 +31,11 @@ const EditableListItem: React.FC<EditableListItemProps> = ({
       />
       <Box ml={3} flex={1}>
         <Text as="b" fontSize="sm" w="12rem" noOfLines={1}>
+          {isNew(userBoardGame?.created?.toMillis()) && (
+            <>
+              <Badge colorScheme="red">New</Badge>{' '}
+            </>
+          )}
           {userBoardGame.name}
         </Text>
         <Box>

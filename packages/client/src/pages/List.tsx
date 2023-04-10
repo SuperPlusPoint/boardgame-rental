@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, Heading, Highlight, Box } from '@chakra-ui/react';
+import { Flex, Heading, Highlight, Box, Badge } from '@chakra-ui/react';
 import SearchBar from '../components/SearchBar';
 import BoardGameList from '../components/BoardGameList';
 import ShareButton from '../components/ShareButton';
@@ -25,17 +25,18 @@ const List = () => {
       pos="relative"
       h="100%"
       flexDirection="column"
-      justify="center"
       align="center"
-      mx={10}
+      px={10}
+      pb={8}
     >
-      <Box w="100%" pos="sticky" top="3.5rem" bg="white" zIndex={8}>
+      <Box bg="white" zIndex={8} alignSelf="stretch">
         <Heading as="h2" size="lg" lineHeight="tall" textAlign="center">
           <Highlight query={name} styles={{ color: '#3182ce' }}>
             {name}
           </Highlight>
           님의{name.length > 7 ? <br /> : ' '}보드게임 목록
         </Heading>
+        <Badge>총 보유수 {boardGames.length}개</Badge>
         <SearchBar onSearch={(value) => setFilter(value)} />
       </Box>
       <BoardGameList

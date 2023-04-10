@@ -8,9 +8,11 @@ import {
   ButtonGroup,
   Skeleton,
   SkeletonText,
+  Badge,
 } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
 import { BoardGame, UserBoardGame } from '../models/boardgame';
+import { isNew } from '../utils/timestamp';
 
 interface ListItemProps {
   userBoardGame: UserBoardGame;
@@ -31,7 +33,6 @@ const ListItem: React.FC<ListItemProps> = ({
     `/boardgame/${userBoardGame.id}`,
     () => getBoardGame(userBoardGame.id)
   );
-
   return (
     <Flex justify="center" align="center" mb={3}>
       <Skeleton isLoaded={!isLoading}>
@@ -46,6 +47,11 @@ const ListItem: React.FC<ListItemProps> = ({
       <Box ml={3} flex={1}>
         <Skeleton isLoaded={!isLoading}>
           <Text as="b" fontSize="sm" noOfLines={1}>
+            {isNew(userBoardGame?.created?.toMillis()) && (
+              <>
+                <Badge colorScheme="red">New</Badge>{' '}
+              </>
+            )}
             {boardGame?.koreanName || boardGame?.name}
           </Text>
         </Skeleton>
