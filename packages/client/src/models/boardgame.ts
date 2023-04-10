@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 export interface BoardGame {
   id: string;
   publishedYear: number;
@@ -19,4 +21,5 @@ export interface UserBoardGame {
   thumbnail: string;
   total: number;
   rental: number;
+  created?: Timestamp;
 }

@@ -28,9 +28,11 @@ const ListAdd = () => {
       flexDirection="column"
       justify="center"
       align="center"
-      mx={10}
+      px={10}
+      pb={8}
+      h="100%"
     >
-      <Box w="100%" pos="sticky" top="3.5rem" zIndex={8}>
+      <Box alignSelf="stretch" zIndex={8}>
         <Heading as="h2" size="lg" lineHeight="tall" textAlign="center">
           보드게임 추가
         </Heading>
@@ -48,11 +50,9 @@ const ListAdd = () => {
       />
       <Button
         size="md"
-        pos="fixed"
-        bottom="0"
-        width="60%"
+        alignSelf="stretch"
         colorScheme="blue"
-        my={9}
+        mt={4}
         onClick={() =>
           addBoardGames(selectedBoardGameList).then(() => navigate('/setting'))
         }

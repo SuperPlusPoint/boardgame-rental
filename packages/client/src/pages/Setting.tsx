@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, Heading, Box, Button, useToast } from '@chakra-ui/react';
+import { Flex, Heading, Box, Button, useToast, Badge } from '@chakra-ui/react';
 import SearchBar from '../components/SearchBar';
 import EditableBoardGameList from '../components/EditableBoardGameList';
 import { useAuthContext } from '../AuthProvider';
@@ -8,6 +8,7 @@ import { useUserBoardGame } from '../hooks/useUserBoardGame';
 const Setting = () => {
   const { user } = useAuthContext();
   const {
+    boardGames,
     settingBoardGames,
     filter,
     setFilter,
@@ -20,14 +21,15 @@ const Setting = () => {
       pos="relative"
       h="100%"
       flexDirection="column"
-      justify="center"
       align="center"
-      mx={10}
+      px={10}
+      pb={8}
     >
-      <Box w="100%" pos="sticky" top="3.5rem" zIndex={8}>
+      <Box zIndex={8} alignSelf="stretch">
         <Heading as="h2" size="lg" lineHeight="tall" textAlign="center">
           보드게임 관리
         </Heading>
+        <Badge>총 보유수 {boardGames.length}개</Badge>
         <SearchBar onSearch={(value) => setFilter(value)} />
       </Box>
       <EditableBoardGameList
@@ -37,16 +39,14 @@ const Setting = () => {
       />
       <Button
         size="md"
-        pos="fixed"
-        bottom="0"
-        width="60%"
-        colorScheme="blue"
         my={2}
+        alignSelf="stretch"
+        colorScheme="blue"
         onClick={() => {
           toast({
             title: '저장되었습니다.',
             status: 'success',
-            duration: 9000,
+            duration: 5000,
             isClosable: true,
           });
           saveBoardGames();

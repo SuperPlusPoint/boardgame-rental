@@ -45,4 +45,28 @@ router.get('/', async (req: KeywordRequest, res) => {
   res.json(boardGames);
 });
 
+// router.get('/update', async (req, res) => {
+//   const batch = db.batch();
+//   const userList = await db.collection('users').get();
+//   const userIds: string[] = [];
+//   userList.forEach((doc) => {
+//     userIds.push(doc.id);
+//   });
+//   const boardGameRefs = await Promise.all(userIds.map(async (id) => {
+//     const docs = await db.collection('users').doc(id).collection('boardgames').get();
+//     const refs: any[] | PromiseLike<any[]> = [];
+//     docs.forEach((doc) => {
+//       refs.push(db.collection('users').doc(id).collection('boardgames').doc(doc.id));
+//     });
+//     return refs;
+//   }));
+//   await Promise.all(
+//     boardGameRefs.flat().map(ref => batch.update(ref, {
+//       created: admin.firestore.FieldValue.serverTimestamp()
+//     }))
+//   );
+//   await batch.commit();
+//   res.send('success');
+// });
+
 export default router;
