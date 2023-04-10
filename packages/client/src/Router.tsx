@@ -21,7 +21,7 @@ const Router = () => {
           <Route element={<PrivateRouter />}>
             <Route path="/list" element={<List />} />
             <Route path="/setting" element={<Setting />} />
-            <Route path="/list/add" element={<ListAdd />} />
+            <Route path="/add" element={<ListAdd />} />
             <Route path="/my" element={<MyPage />} />
           </Route>
           <Route path="/list/:userId" element={<List />} />
