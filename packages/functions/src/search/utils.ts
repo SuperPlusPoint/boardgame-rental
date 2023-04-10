@@ -30,11 +30,11 @@ export const toBoardGame = (boardGameResponse: BoardGameResponse): BoardGame => 
     },
     name: nameCandidate,
     thumbnail: {
-      _text: thumbnail,
-    },
+      _text: thumbnail = '',
+    } = {_text: ''},
     image: {
-      _text: image,
-    },
+      _text: image = '',
+    } = {_text: ''},
   } = boardGameResponse;
 
   const nameCandidates = Array.isArray(nameCandidate) ? nameCandidate : [nameCandidate];
@@ -50,7 +50,7 @@ export const toBoardGame = (boardGameResponse: BoardGameResponse): BoardGame => 
     minPlayTime: Number(minPlayTime),
     age: Number(age),
     name,
-    koreanName,
+    ...(koreanName ? {koreanName} : {}),
     thumbnail,
     image,
   };

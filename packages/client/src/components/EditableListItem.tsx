@@ -26,8 +26,9 @@ const EditableListItem: React.FC<EditableListItemProps> = ({
         boxSize="4rem"
         borderRadius="md"
         objectFit="cover"
-        src={userBoardGame.thumbnail}
+        src={userBoardGame?.thumbnail}
         alt={`${userBoardGame.name} thumbnail`}
+        fallbackSrc="https://via.placeholder.com/64"
       />
       <Box ml={3} flex={1}>
         <Text as="b" fontSize="sm" w="12rem" noOfLines={1}>
