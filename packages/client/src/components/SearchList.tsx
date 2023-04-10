@@ -19,10 +19,10 @@ const SearchList: React.FC<SearchListProps> = ({
   if (isLoading) {
     return (
       <Flex
-        w="100%"
+        alignSelf="stretch"
         flexDirection="column"
-        mr="auto"
-        maxHeight="48vh"
+        my="auto"
+        flex={1}
         overflow="scroll"
       >
         <Center mt={3}>
@@ -39,28 +39,27 @@ const SearchList: React.FC<SearchListProps> = ({
   }
 
   return (
-    <Flex
-      w="100%"
-      flexDirection="column"
-      mr="auto"
-      maxHeight="48vh"
-      overflow="scroll"
-      textAlign="center"
-    >
-      <Accordion mt={3}>
-        {!isFetched && <Text mt={5}>추가할 보드게임 이름을 검색하세요</Text>}
-        {isFetched && boardGameList.length === 0 ? (
-          <Text mt={5}>검색 결과가 없습니다.</Text>
-        ) : (
-          boardGameList.map((boardGame) => (
+    <Flex alignSelf="stretch" flexDirection="column" flex={1} overflow="scroll">
+      {!isFetched && (
+        <Text mt={5} align="center">
+          추가할 보드게임 이름을 검색하세요
+        </Text>
+      )}
+      {isFetched && boardGameList.length === 0 ? (
+        <Text mt={5} align="center">
+          검색 결과가 없습니다.
+        </Text>
+      ) : (
+        <Accordion mt={3}>
+          {boardGameList.map((boardGame) => (
             <SearchItem
               key={boardGame.id}
               boardGame={boardGame}
               onSelect={selectBoardGame}
             />
-          ))
-        )}
-      </Accordion>
+          ))}
+        </Accordion>
+      )}
     </Flex>
   );
 };

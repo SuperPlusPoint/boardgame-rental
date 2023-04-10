@@ -21,7 +21,7 @@ const SelectedList: React.FC<SelectedListProps> = ({
   changeTotal,
 }) => {
   return (
-    <Box pos="fixed" bottom="7rem" w="85%" maxHeight="23vh" overflow="scroll">
+    <Box alignSelf="stretch" overflow="scroll" mt={4} maxH="150px">
       <TableContainer whiteSpace="normal" wordBreak="break-word">
         <Table size="sm">
           <Thead>
