@@ -3,12 +3,12 @@ import Header from '../components/Header';
 
 const Layout = () => {
   return (
-    <div>
+    <>
       <Header />
-      <main>
+      <main style={{ height: 'calc(100% - 61px)' }}>
         <Outlet />
       </main>
-    </div>
+    </>
   );
 };
 

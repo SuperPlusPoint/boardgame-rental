@@ -24,7 +24,7 @@ export const useUserBoardGame = (userId: string) => {
     [userRef]
   );
 
-  const { data: user = defaultUser } = useQuery(
+  const { data: user = defaultUser, refetch: userRefetch } = useQuery(
     `user/${userId}`,
     async () => {
       const userData = await getDoc(userRef);
@@ -36,6 +36,16 @@ export const useUserBoardGame = (userId: string) => {
     {
       enabled: !!userId,
     }
+  );
+
+  const updateUserName = useCallback(
+    async (name: string) => {
+      await updateDoc(userRef, {
+        name,
+      });
+      userRefetch();
+    },
+    [userRef, userRefetch]
   );
 
   const { data = [], refetch } = useQuery(
@@ -171,6 +181,7 @@ export const useUserBoardGame = (userId: string) => {
     settingBoardGames,
     filter,
     setFilter,
+    updateUserName,
     getBoardGame,
     addBoardGames,
     updateBoardGame,
