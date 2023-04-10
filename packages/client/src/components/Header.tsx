@@ -20,7 +20,7 @@ const Header = () => {
           <Link to="/setting">
             <Tab>관리</Tab>
           </Link>
-          <Link to="/setting">
+          <Link to="/my">
             <Tab>마이</Tab>
           </Link>
         </TabList>
