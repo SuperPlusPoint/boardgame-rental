@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Flex,
   Image,
@@ -9,10 +9,12 @@ import {
   Skeleton,
   SkeletonText,
   Badge,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
 import { BoardGame, UserBoardGame } from '../models/boardgame';
 import { isNew } from '../utils/timestamp';
+import BoardGameDetail from './BoardGameDetail';
 
 interface ListItemProps {
   userBoardGame: UserBoardGame;
@@ -33,70 +35,94 @@ const ListItem: React.FC<ListItemProps> = ({
     `/boardgame/${userBoardGame.id}`,
     () => getBoardGame(userBoardGame.id)
   );
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const isNewBoardGame = useMemo(
+    () => isNew(userBoardGame?.created?.toMillis()),
+    [userBoardGame]
+  );
+  const buttonGroup = useMemo(
+    () => (
+      <ButtonGroup spacing={2}>
+        {isLogin ? (
+          <>
+            <Button
+              size="xs"
+              colorScheme="blue"
+              isDisabled={userBoardGame.rental === userBoardGame.total}
+              onClick={() => rentBoardGame(userBoardGame)}
+            >
+              대여 하기
+            </Button>
+            <Button
+              size="xs"
+              colorScheme="red"
+              isDisabled={userBoardGame.rental < 1}
+              onClick={() => returnBoardGame(userBoardGame)}
+            >
+              반납 하기
+            </Button>
+          </>
+        ) : (
+          <Button
+            size="xs"
+            colorScheme={
+              userBoardGame.rental < userBoardGame.total ? 'blue' : 'red'
+            }
+          >
+            대여
+            {userBoardGame.rental < userBoardGame.total ? '가능' : '불가'}
+          </Button>
+        )}
+      </ButtonGroup>
+    ),
+    [isLogin, userBoardGame, rentBoardGame, returnBoardGame]
+  );
+
   return (
-    <Flex justify="center" align="center" mb={3}>
-      <Skeleton isLoaded={!isLoading}>
-        <Image
-          boxSize="4rem"
-          borderRadius="md"
-          objectFit="cover"
-          src={boardGame?.thumbnail}
-          alt={`${boardGame?.name} thumbnail`}
-          fallbackSrc="https://via.placeholder.com/64"
-        />
-      </Skeleton>
-      <Box ml={3} flex={1}>
+    <>
+      <Flex justify="center" align="center" mb={3} onClick={onOpen}>
         <Skeleton isLoaded={!isLoading}>
-          <Text as="b" fontSize="sm" noOfLines={1}>
-            {isNew(userBoardGame?.created?.toMillis()) && (
-              <>
-                <Badge colorScheme="red">New</Badge>{' '}
-              </>
-            )}
-            {boardGame?.koreanName || boardGame?.name}
-          </Text>
+          <Image
+            boxSize="4rem"
+            borderRadius="md"
+            objectFit="cover"
+            src={boardGame?.thumbnail}
+            alt={`${boardGame?.name} thumbnail`}
+            fallbackSrc="https://via.placeholder.com/64"
+          />
         </Skeleton>
-        <Box>
-          <SkeletonText isLoaded={!isLoading} noOfLines={1}>
-            <Text fontSize="xs">
-              {boardGame?.minPlayerNum}-{boardGame?.maxPlayerNum} Players
+        <Box ml={3} flex={1}>
+          <Skeleton isLoaded={!isLoading}>
+            <Text as="b" fontSize="sm" noOfLines={1}>
+              {isNewBoardGame && (
+                <>
+                  <Badge colorScheme="red">New</Badge>{' '}
+                </>
+              )}
+              {boardGame?.koreanName || boardGame?.name}
             </Text>
-          </SkeletonText>
-          <ButtonGroup spacing={2}>
-            {isLogin ? (
-              <>
-                <Button
-                  size="xs"
-                  colorScheme="blue"
-                  isDisabled={userBoardGame.rental === userBoardGame.total}
-                  onClick={() => rentBoardGame(userBoardGame)}
-                >
-                  대여 하기
-                </Button>
-                <Button
-                  size="xs"
-                  colorScheme="red"
-                  isDisabled={userBoardGame.rental < 1}
-                  onClick={() => returnBoardGame(userBoardGame)}
-                >
-                  반납 하기
-                </Button>
-              </>
-            ) : (
-              <Button
-                size="xs"
-                colorScheme={
-                  userBoardGame.rental < userBoardGame.total ? 'blue' : 'red'
-                }
-              >
-                대여
-                {userBoardGame.rental < userBoardGame.total ? '가능' : '불가'}
-              </Button>
-            )}
-          </ButtonGroup>
+          </Skeleton>
+          <Box>
+            <SkeletonText isLoaded={!isLoading} noOfLines={1}>
+              <Text fontSize="xs">
+                {boardGame?.minPlayerNum}-{boardGame?.maxPlayerNum} Players
+              </Text>
+            </SkeletonText>
+          </Box>
+          {buttonGroup}
         </Box>
-      </Box>
-    </Flex>
+      </Flex>
+      {boardGame && (
+        <BoardGameDetail
+          userBoardGame={userBoardGame}
+          boardGame={boardGame}
+          isOpen={isOpen}
+          isNew={isNewBoardGame}
+          footer={buttonGroup}
+          onClose={onClose}
+        />
+      )}
+    </>
   );
 };
 
