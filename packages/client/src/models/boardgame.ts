@@ -21,5 +21,5 @@ export interface UserBoardGame {
   thumbnail: string;
   total: number;
   rental: number;
-  created?: Timestamp;
+  created: Timestamp;
 }
