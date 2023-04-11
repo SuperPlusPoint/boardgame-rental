@@ -12,6 +12,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { db } from '../firebase';
 import { BoardGame, UserBoardGame } from '../models/boardgame';
+import { Sort } from '../types/enums';
 
 const defaultUser = {
   uid: 'no-login',
@@ -68,12 +69,19 @@ export const useUserBoardGame = (userId: string) => {
   );
 
   const [filter, setFilter] = useState<string>('');
+  const [sort, setSort] = useState<Sort>(Sort.Created);
   const boardGames = useMemo(() => {
+    data.sort((a, b) => {
+      if (sort === Sort.Created) {
+        return b.created.toMillis() - a.created.toMillis();
+      }
+      return b.name > a.name ? -1 : 1;
+    });
     if (!filter) {
       return data;
     }
     return data.filter(({ name }) => name.includes(filter));
-  }, [data, filter]);
+  }, [data, filter, sort]);
 
   const addBoardGames = useCallback(
     async (list: UserBoardGame[]) => {
@@ -186,6 +194,8 @@ export const useUserBoardGame = (userId: string) => {
     settingBoardGames,
     filter,
     setFilter,
+    sort,
+    setSort,
     updateUserName,
     getBoardGame,
     addBoardGames,

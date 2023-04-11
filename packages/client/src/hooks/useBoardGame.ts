@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Timestamp } from 'firebase/firestore';
 import { useCallback, useState } from 'react';
 import { useQuery } from 'react-query';
 import { BoardGame, UserBoardGame } from '../models/boardgame';
@@ -9,6 +10,7 @@ const toUserBoardGame = (boardGame: BoardGame): UserBoardGame => ({
   thumbnail: boardGame.thumbnail,
   total: 1,
   rental: 0,
+  created: Timestamp.now(),
 });
 
 export const useBoardGame = () => {
