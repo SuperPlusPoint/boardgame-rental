@@ -13,6 +13,7 @@ interface NumericInputProps {
   label?: string;
   value: number;
   max?: number;
+  step?: number;
   onChange?: (v: number) => void;
 }
 
@@ -20,6 +21,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
   label,
   value,
   max,
+  step = 1,
   onChange,
 }) => {
   return (
@@ -32,6 +34,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
         min={0}
         max={max}
         ml={3}
+        step={step}
         onChange={(v) => onChange?.(Number(v))}
       >
         <NumberInputField />

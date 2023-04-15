@@ -81,7 +81,7 @@ const GridItem: React.FC<GridItemProps> = ({
       <Flex direction="column" justify="center" align="center" onClick={onOpen}>
         <Skeleton isLoaded={!isLoading}>
           <Image
-            boxSize="6rem"
+            boxSize="4rem"
             borderRadius="md"
             objectFit="cover"
             src={boardGame?.thumbnail}

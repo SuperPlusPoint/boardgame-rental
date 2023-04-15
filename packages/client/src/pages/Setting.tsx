@@ -22,7 +22,7 @@ const Setting = () => {
       h="100%"
       flexDirection="column"
       align="center"
-      px={10}
+      px={8}
       pb={8}
     >
       <Box zIndex={8} alignSelf="stretch">

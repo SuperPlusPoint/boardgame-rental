@@ -9,7 +9,7 @@ import {
   writeBatch,
 } from 'firebase/firestore';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { db } from '../firebase';
 import { BoardGame, UserBoardGame } from '../models/boardgame';
 import { Sort } from '../types/enums';
@@ -67,21 +67,77 @@ export const useUserBoardGame = (userId: string) => {
       enabled: !!userId,
     }
   );
-
+  const queryClient = useQueryClient();
   const [filter, setFilter] = useState<string>('');
   const [sort, setSort] = useState<Sort>(Sort.Created);
+  const [playerNum, setPlayerNum] = useState(0);
+  const [startPlayingTime, setStartPlayingTime] = useState<number>(0);
+  const [endPlayingTime, setEndPlayingTime] = useState<number>(0);
+
   const boardGames = useMemo(() => {
-    data.sort((a, b) => {
+    let filteredData = [...data];
+    filteredData.sort((a, b) => {
       if (sort === Sort.Created) {
         return b.created.toMillis() - a.created.toMillis();
       }
       return b.name > a.name ? -1 : 1;
     });
-    if (!filter) {
-      return data;
+
+    if (filter) {
+      filteredData = filteredData.filter(({ name }) => name.includes(filter));
     }
-    return data.filter(({ name }) => name.includes(filter));
-  }, [data, filter, sort]);
+
+    const boardGameMap = filteredData.reduce((map, { id }) => {
+      const boardGame = queryClient.getQueryData<BoardGame>(`/boardgame/${id}`);
+      if (boardGame) {
+        map.set(id, boardGame);
+      }
+      return map;
+    }, new Map<string, BoardGame>());
+
+    if (playerNum) {
+      filteredData = filteredData.filter(({ id }) => {
+        const boardGame = boardGameMap.get(id);
+        if (!boardGame) {
+          return false;
+        }
+        return (
+          boardGame.minPlayerNum <= playerNum &&
+          playerNum <= boardGame.maxPlayerNum
+        );
+      });
+    }
+
+    if (startPlayingTime) {
+      filteredData = filteredData.filter(({ id }) => {
+        const boardGame = boardGameMap.get(id);
+        if (!boardGame) {
+          return false;
+        }
+        return startPlayingTime <= boardGame.minPlayTime;
+      });
+    }
+
+    if (endPlayingTime) {
+      filteredData = filteredData.filter(({ id }) => {
+        const boardGame = boardGameMap.get(id);
+        if (!boardGame) {
+          return false;
+        }
+        return endPlayingTime >= boardGame.maxPlayTime;
+      });
+    }
+
+    return filteredData;
+  }, [
+    data,
+    filter,
+    sort,
+    playerNum,
+    startPlayingTime,
+    endPlayingTime,
+    queryClient,
+  ]);
 
   const addBoardGames = useCallback(
     async (list: UserBoardGame[]) => {
@@ -196,6 +252,12 @@ export const useUserBoardGame = (userId: string) => {
     setFilter,
     sort,
     setSort,
+    playerNum,
+    setPlayerNum,
+    startPlayingTime,
+    setStartPlayingTime,
+    endPlayingTime,
+    setEndPlayingTime,
     updateUserName,
     getBoardGame,
     addBoardGames,

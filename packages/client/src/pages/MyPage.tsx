@@ -51,7 +51,7 @@ const MyPage = () => {
         h="100%"
         boxSizing="border-box"
         flexDirection="column"
-        px={10}
+        px={8}
         py={4}
       >
         <FormControl flex={1} isInvalid={isError}>
