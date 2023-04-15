@@ -28,7 +28,7 @@ const ListAdd = () => {
       flexDirection="column"
       justify="center"
       align="center"
-      px={10}
+      px={8}
       pb={8}
       h="100%"
     >
