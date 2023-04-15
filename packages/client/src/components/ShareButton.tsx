@@ -81,9 +81,6 @@ const ShareButton = () => {
             >
               링크로 공유하기
             </Button>
-            <Button colorScheme="yellow" mr={3}>
-              카카오톡으로 공유하기
-            </Button>
           </ModalBody>
         </ModalContent>
       </Modal>
