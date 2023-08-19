@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { MdFormatListBulleted, MdGridView } from 'react-icons/md';
 import {
   Flex,
-  Heading,
-  Highlight,
   Select,
   Box,
   Badge,
@@ -25,6 +23,7 @@ import { useUserBoardGame } from '../hooks/useUserBoardGame';
 import { useListParams } from '../hooks/useListParams';
 import { Sort, View } from '../types/enums';
 import NumericInput from '../components/NumericInput';
+import Title from '../components/Title';
 
 const List = () => {
   const { user } = useAuthContext();
@@ -55,15 +54,11 @@ const List = () => {
       flexDirection="column"
       align="center"
       px={8}
+      pt="40px"
       pb={8}
     >
-      <Box bg="white" zIndex={8} alignSelf="stretch">
-        <Heading as="h2" size="lg" lineHeight="tall" textAlign="center">
-          <Highlight query={name} styles={{ color: '#3182ce' }}>
-            {name}
-          </Highlight>
-          님의{name.length > 7 ? <br /> : ' '}보드게임 목록
-        </Heading>
+      <Title name={name} />
+      <Box zIndex={8} alignSelf="stretch">
         <Badge>총 보유수 {boardGames.length}개</Badge>
         <SearchBar onSearch={(value) => setFilter(value)} />
       </Box>

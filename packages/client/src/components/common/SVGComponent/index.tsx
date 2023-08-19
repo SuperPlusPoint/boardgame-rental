@@ -1,9 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import CategoryIcon, { CategoryProps } from './CategoryIcon';
 import PlusIcon, { PlusProps } from './PlusIcon';
 import ProfileIcon, { ProfileProps } from './ProfileIcon';
 import SettingIcon, { SettingProps } from './SettingIcon';
 import LinkIcon, { LinkProps } from './LinkIcon';
+import TitleIcon, { TitleProps } from './TitleIcon';
+import MenuIcon, { MenuProps } from './MenuIcon';
 
 export enum Icon {
   Category = 'Category',
@@ -11,6 +13,8 @@ export enum Icon {
   Profile = 'Profile',
   Setting = 'Setting',
   Link = 'Link',
+  Title = 'Title',
+  Menu = 'Menu',
 }
 
 interface SVGProps {
@@ -19,6 +23,7 @@ interface SVGProps {
   height?: number;
   stroke?: number;
   color?: string;
+  style?: React.CSSProperties;
 }
 
 const icons = {
@@ -37,6 +42,8 @@ const icons = {
   [Icon.Link]: ({ width, height, color }: LinkProps) => (
     <LinkIcon width={width} height={height} color={color} />
   ),
+  [Icon.Menu]: ({ color }: MenuProps) => <MenuIcon color={color} />,
+  [Icon.Title]: ({ width }: TitleProps) => <TitleIcon width={width} />,
 };
 
 const SVGComponent = ({
@@ -45,6 +52,7 @@ const SVGComponent = ({
   height = 28,
   stroke = 1.5,
   color = 'white',
+  style,
 }: SVGProps) => (
   <svg
     width={width}
@@ -52,6 +60,7 @@ const SVGComponent = ({
     viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    style={style}
   >
     {icons[icon]({ stroke, color, width, height })}
   </svg>
