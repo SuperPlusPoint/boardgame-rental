@@ -3,7 +3,7 @@ import { MdFormatListBulleted, MdGridView } from 'react-icons/md';
 import {
   Flex,
   Select,
-  Box,
+  Heading,
   Badge,
   Popover,
   PopoverBody,
@@ -58,10 +58,18 @@ const List = () => {
       pb={8}
     >
       <Title name={name} />
-      <Box zIndex={8} alignSelf="stretch">
-        <Badge>총 보유수 {boardGames.length}개</Badge>
+      <Flex
+        zIndex={8}
+        alignSelf="stretch"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Heading as="h3" size="lg">
+          Board Game List
+        </Heading>
         <SearchBar onSearch={(value) => setFilter(value)} />
-      </Box>
+      </Flex>
+      <Badge>총 보유수 {boardGames.length}개</Badge>
       <Flex justify="space-between" alignSelf="stretch" gap={1}>
         <Popover placement="bottom-start" variant="responsive">
           <PopoverTrigger>

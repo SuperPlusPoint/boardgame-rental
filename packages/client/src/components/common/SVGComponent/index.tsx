@@ -6,6 +6,7 @@ import SettingIcon, { SettingProps } from './SettingIcon';
 import LinkIcon, { LinkProps } from './LinkIcon';
 import TitleIcon, { TitleProps } from './TitleIcon';
 import MenuIcon, { MenuProps } from './MenuIcon';
+import SearchIcon, { SearchProps } from './SearchIcon';
 
 export enum Icon {
   Category = 'Category',
@@ -15,6 +16,7 @@ export enum Icon {
   Link = 'Link',
   Title = 'Title',
   Menu = 'Menu',
+  Search = 'Search',
 }
 
 interface SVGProps {
@@ -43,6 +45,7 @@ const icons = {
     <LinkIcon width={width} height={height} color={color} />
   ),
   [Icon.Menu]: ({ color }: MenuProps) => <MenuIcon color={color} />,
+  [Icon.Search]: ({ color }: SearchProps) => <SearchIcon color={color} />,
   [Icon.Title]: ({ width }: TitleProps) => <TitleIcon width={width} />,
 };
 

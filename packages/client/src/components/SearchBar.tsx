@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FormControl, Box, Input, IconButton } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
+import SVGComponent, { Icon } from './common/SVGComponent';
 
 type SearchBarProps = {
   onSearch: (val: string) => void;
@@ -14,13 +14,19 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
   };
 
   return (
-    <FormControl w="100%">
-      <Box display="flex" gap={2} my={3}>
+    <FormControl w="">
+      <Box
+        display="flex"
+        backgroundColor="white"
+        border="1px solid black"
+        width="116px"
+      >
         <Input
-          placeholder="검색"
-          size="sm"
-          borderRadius="md"
-          variant="outline"
+          placeholder="Search"
+          fontSize="0.5rem"
+          height="20px"
+          paddingLeft="6px"
+          variant="unstyled"
           type="text"
           onChange={handleValue}
           onKeyDown={(e) => {
@@ -30,11 +36,19 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
           }}
         />
         <IconButton
-          size="sm"
+          width="20px"
+          height="20px"
           color="white"
-          colorScheme="blue"
+          colorScheme="white"
           aria-label="Search"
-          icon={<SearchIcon />}
+          icon={
+            <SVGComponent
+              icon={Icon.Search}
+              width={12}
+              height={12}
+              color="black"
+            />
+          }
           onClick={() => onSearch(value)}
         />
       </Box>
