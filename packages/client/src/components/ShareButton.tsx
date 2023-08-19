@@ -10,7 +10,7 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
-import { LinkIcon } from '@chakra-ui/icons';
+import SVGComponent, { Icon } from './common/SVGComponent';
 
 const ShareButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,14 +32,21 @@ const ShareButton = () => {
   return (
     <>
       <IconButton
-        pos="fixed"
-        bottom="2rem"
-        right="2rem"
-        colorScheme="yellow"
+        pos="absolute"
+        bottom="19px"
+        right="19px"
+        backgroundColor="#FFD951"
+        borderWidth={2}
+        borderStyle="solid"
+        borderColor="black"
         borderRadius="full"
+        width={42}
+        height={42}
         zIndex={2}
         aria-label="Share"
-        icon={<LinkIcon />}
+        icon={
+          <SVGComponent icon={Icon.Link} width={37} height={37} color="black" />
+        }
         onClick={onOpen}
       />
 

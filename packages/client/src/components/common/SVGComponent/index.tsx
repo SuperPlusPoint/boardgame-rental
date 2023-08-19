@@ -3,12 +3,14 @@ import CategoryIcon, { CategoryProps } from './CategoryIcon';
 import PlusIcon, { PlusProps } from './PlusIcon';
 import ProfileIcon, { ProfileProps } from './ProfileIcon';
 import SettingIcon, { SettingProps } from './SettingIcon';
+import LinkIcon, { LinkProps } from './LinkIcon';
 
 export enum Icon {
   Category = 'Category',
   Plus = 'Plus',
   Profile = 'Profile',
   Setting = 'Setting',
+  Link = 'Link',
 }
 
 interface SVGProps {
@@ -32,9 +34,18 @@ const icons = {
   [Icon.Setting]: ({ stroke, color }: SettingProps) => (
     <SettingIcon stroke={stroke} color={color} />
   ),
+  [Icon.Link]: ({ width, height, color }: LinkProps) => (
+    <LinkIcon width={width} height={height} color={color} />
+  ),
 };
 
-const SVGComponent = ({ icon, width, height, stroke, color }: SVGProps) => (
+const SVGComponent = ({
+  icon,
+  width = 28,
+  height = 28,
+  stroke = 1.5,
+  color = 'white',
+}: SVGProps) => (
   <svg
     width={width}
     height={height}
@@ -42,16 +53,8 @@ const SVGComponent = ({ icon, width, height, stroke, color }: SVGProps) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    {icons[icon]({ stroke, color } as CategoryProps)}
+    {icons[icon]({ stroke, color, width, height })}
   </svg>
 );
 
-const defaultProps = {
-  width: 28,
-  height: 28,
-  stroke: 1.5,
-  color: 'white',
-};
-
-SVGComponent.defaultProps = defaultProps;
 export default SVGComponent;
