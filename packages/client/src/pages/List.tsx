@@ -1,29 +1,14 @@
 import React, { useState } from 'react';
-import { MdFormatListBulleted, MdGridView } from 'react-icons/md';
-import {
-  Flex,
-  Select,
-  Heading,
-  Badge,
-  Popover,
-  PopoverBody,
-  PopoverContent,
-  PopoverCloseButton,
-  PopoverTrigger,
-  ButtonGroup,
-  Button,
-  IconButton,
-  Icon,
-} from '@chakra-ui/react';
+import { Flex, Heading } from '@chakra-ui/react';
 import SearchBar from '../components/SearchBar';
 import BoardGameList from '../components/BoardGameList';
 import ShareButton from '../components/ShareButton';
 import { useAuthContext } from '../AuthProvider';
 import { useUserBoardGame } from '../hooks/useUserBoardGame';
 import { useListParams } from '../hooks/useListParams';
-import { Sort, View } from '../types/enums';
-import NumericInput from '../components/NumericInput';
+import { View } from '../types/enums';
 import Title from '../components/Title';
+import FilterBar from '../components/FilterBar';
 
 const List = () => {
   const { user } = useAuthContext();
@@ -63,84 +48,26 @@ const List = () => {
         alignSelf="stretch"
         justifyContent="space-between"
         alignItems="center"
+        marginBottom="7px"
       >
         <Heading as="h3" size="lg">
           Board Game List
         </Heading>
         <SearchBar onSearch={(value) => setFilter(value)} />
       </Flex>
-      <Badge>총 보유수 {boardGames.length}개</Badge>
-      <Flex justify="space-between" alignSelf="stretch" gap={1}>
-        <Popover placement="bottom-start" variant="responsive">
-          <PopoverTrigger>
-            <Button size="sm" variant="outline" px={4}>
-              인원
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent w="3xs">
-            <PopoverCloseButton />
-            <PopoverBody>
-              <NumericInput
-                label="인원"
-                value={playerNum}
-                onChange={setPlayerNum}
-              />
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
-        <Popover placement="bottom-start" variant="responsive">
-          <PopoverTrigger>
-            <Button size="sm" variant="outline" px={4}>
-              시간
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent w="2xs">
-            <PopoverCloseButton />
-            <PopoverBody>
-              <NumericInput
-                label="최소 시간"
-                value={startPlayingTime}
-                onChange={setStartPlayingTime}
-                step={10}
-              />
-              <NumericInput
-                label="최대 시간"
-                value={endPlayingTime}
-                onChange={setEndPlayingTime}
-                step={10}
-              />
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
-        <Select
-          width="6em"
-          placeholder="정렬"
-          size="sm"
-          value={sort}
-          onChange={(e) => setSort(e.target.value as Sort)}
-        >
-          <option value={Sort.Created}>추가순</option>
-          <option value={Sort.Name}>이름순</option>
-        </Select>
-        <ButtonGroup spacing={2} alignSelf="end" mb={1} ml="auto">
-          <IconButton
-            size="sm"
-            variant="outline"
-            isActive={view === View.List}
-            onClick={() => setView(View.List)}
-            icon={<Icon as={MdFormatListBulleted} />}
-            aria-label="list view"
-          />
-          <IconButton
-            size="sm"
-            variant="outline"
-            isActive={view === View.Grid}
-            onClick={() => setView(View.Grid)}
-            icon={<Icon as={MdGridView} />}
-            aria-label="grid view"
-          />
-        </ButtonGroup>
-      </Flex>
+      <FilterBar
+        count={boardGames.length}
+        playerNum={playerNum}
+        setPlayerNum={setPlayerNum}
+        startPlayingTime={startPlayingTime}
+        setStartPlayingTime={setStartPlayingTime}
+        endPlayingTime={endPlayingTime}
+        setEndPlayingTime={setEndPlayingTime}
+        sort={sort}
+        setSort={setSort}
+        view={view}
+        setView={setView}
+      />
       <BoardGameList
         view={view}
         boardGameList={boardGames}

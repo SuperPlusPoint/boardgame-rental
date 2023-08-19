@@ -7,6 +7,7 @@ import LinkIcon, { LinkProps } from './LinkIcon';
 import TitleIcon, { TitleProps } from './TitleIcon';
 import MenuIcon, { MenuProps } from './MenuIcon';
 import SearchIcon, { SearchProps } from './SearchIcon';
+import SelectArrowIcon, { SelectArrowProps } from './SelectArrowIcon';
 
 export enum Icon {
   Category = 'Category',
@@ -17,6 +18,7 @@ export enum Icon {
   Title = 'Title',
   Menu = 'Menu',
   Search = 'Search',
+  SelectArrow = 'SelectArrow',
 }
 
 interface SVGProps {
@@ -43,6 +45,9 @@ const icons = {
   ),
   [Icon.Link]: ({ width, height, color }: LinkProps) => (
     <LinkIcon width={width} height={height} color={color} />
+  ),
+  [Icon.SelectArrow]: ({ color }: SelectArrowProps) => (
+    <SelectArrowIcon color={color} />
   ),
   [Icon.Menu]: ({ color }: MenuProps) => <MenuIcon color={color} />,
   [Icon.Search]: ({ color }: SearchProps) => <SearchIcon color={color} />,
