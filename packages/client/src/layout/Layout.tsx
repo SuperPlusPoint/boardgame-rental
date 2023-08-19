@@ -4,10 +4,10 @@ import Header from '../components/Header';
 const Layout = () => {
   return (
     <>
-      <Header />
-      <main style={{ height: 'calc(100% - 61px)' }}>
+      <main style={{ height: 'calc(100% - 76px)' }}>
         <Outlet />
       </main>
+      <Header />
     </>
   );
 };

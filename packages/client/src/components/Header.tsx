@@ -1,8 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Flex, Tabs, TabList, Tab, Text, TabIndicator } from '@chakra-ui/react';
+import { Flex, Tabs, TabList, Tab, TabIndicator } from '@chakra-ui/react';
 import { useMemo } from 'react';
+import SVGComponent, { Icon } from './common/SVGComponent';
 
-const TABS = ['/list', '/add', '/setting', '/my'];
+const TABS = ['/list', '/add', '/my', '/setting'];
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -11,32 +12,38 @@ const Header = () => {
     [pathname]
   );
   return (
-    <Flex p={2}>
-      <Link to="/">
-        <Text fontSize="3xl" paddingRight="1rem">
-          🎲
-        </Text>
-      </Link>
-      <Tabs variant="unstyled" index={index}>
-        <TabList>
+    <Flex p={4} backgroundColor="black" position="relative" overflow="hidden">
+      <Tabs variant="unstyled" index={index} width="100%">
+        <TabList justifyContent="space-between" paddingX={11}>
           <Link to="/list">
-            <Tab>목록</Tab>
+            <Tab>
+              <SVGComponent icon={Icon.Category} />
+            </Tab>
           </Link>
           <Link to="/add">
-            <Tab>추가</Tab>
-          </Link>
-          <Link to="/setting">
-            <Tab>관리</Tab>
+            <Tab>
+              <SVGComponent icon={Icon.Plus} />
+            </Tab>
           </Link>
           <Link to="/my">
-            <Tab>마이</Tab>
+            <Tab>
+              <SVGComponent icon={Icon.Profile} />
+            </Tab>
+          </Link>
+          <Link to="/setting">
+            <Tab>
+              <SVGComponent icon={Icon.Setting} />
+            </Tab>
           </Link>
         </TabList>
         <TabIndicator
-          mt="-1.5px"
-          height="2px"
-          bg="blue.500"
-          borderRadius="1px"
+          top="-10px"
+          marginLeft="22.5px"
+          maxWidth="17px"
+          width="17px"
+          height="20px"
+          bg="#FFD951"
+          borderRadius="0 0 50% 50%"
         />
       </Tabs>
     </Flex>
