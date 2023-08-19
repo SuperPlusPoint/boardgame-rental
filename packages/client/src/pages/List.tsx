@@ -50,7 +50,13 @@ const List = () => {
         alignItems="center"
         marginBottom="7px"
       >
-        <Heading as="h3" size="lg">
+        <Heading
+          as="h3"
+          size="lg"
+          fontFamily="WendyOne"
+          fontWeight="normal"
+          fontSize="22px"
+        >
           Board Game List
         </Heading>
         <SearchBar onSearch={(value) => setFilter(value)} />

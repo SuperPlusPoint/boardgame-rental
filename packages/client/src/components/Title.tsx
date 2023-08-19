@@ -31,9 +31,12 @@ const Title = ({ name }: TitleProps) => {
         />
         <Box
           position="absolute"
-          top="28px"
+          top="32px"
           left="50%"
           transform="translateX(-50%)"
+          fontFamily="Recipekorea"
+          fontWeight="light"
+          fontSize="20px"
         >
           {name}'s Store
         </Box>
