@@ -31,7 +31,12 @@ const FilterButton = ({ label, icon, children }: FilterButtonProps) => {
           <Box ml="4px">{icon}</Box>
         </Button>
       </PopoverTrigger>
-      <PopoverContent width="" border="1px solid black" borderRadius="5px">
+      <PopoverContent
+        width=""
+        border="1px solid black"
+        borderRadius="5px"
+        overflow="hidden"
+      >
         <PopoverBody p="0">{children}</PopoverBody>
       </PopoverContent>
     </Popover>

@@ -1,11 +1,12 @@
 import React from 'react';
 import { MdFormatListBulleted, MdGridView } from 'react-icons/md';
-import { Flex, Select, Text, IconButton, Icon } from '@chakra-ui/react';
+import { Flex, Text, IconButton, Icon } from '@chakra-ui/react';
 import { Sort, View } from '../types/enums';
 import NumericInput from './NumericInput';
 import SVGComponent, { Icon as SVGIcon } from './common/SVGComponent';
 import FilterButton from './FilterButton';
 import RangeInput from './RangeInput';
+import SelectInput from './SelectInput';
 
 interface FilterBarProps {
   count: number;
@@ -20,6 +21,17 @@ interface FilterBarProps {
   view: View;
   setView: React.Dispatch<React.SetStateAction<View>>;
 }
+
+const SortOptions = [
+  {
+    value: Sort.Created,
+    label: '추가순',
+  },
+  {
+    value: Sort.Name,
+    label: '이름순',
+  },
+];
 
 const FilterBar = ({
   count,
@@ -59,44 +71,20 @@ const FilterBar = ({
           />
         }
       >
-        <NumericInput
-          label="최소 시간"
-          value={startPlayingTime}
-          onChange={setStartPlayingTime}
-          step={10}
-        />
-        <NumericInput
-          label="최대 시간"
-          value={endPlayingTime}
-          onChange={setEndPlayingTime}
-          step={10}
+        <SelectInput
+          selected={sort}
+          placeholder="정렬"
+          options={SortOptions}
+          onChange={setSort}
         />
       </FilterButton>
-      <Select
-        bgColor="white"
-        borderColor="black"
-        borderRadius="5px"
-        height="23px"
-        verticalAlign="middle"
-        fontSize="11px"
-        width="63px"
-        placeholder="정렬"
-        marginRight="auto"
-        icon={
-          <SVGComponent
-            icon={SVGIcon.SelectArrow}
-            width={6}
-            height={3}
-            color="black"
-          />
-        }
-        value={sort}
-        onChange={(e) => setSort(e.target.value as Sort)}
+      <Text
+        fontWeight="bold"
+        fontSize="15px"
+        height="18px"
+        lineHeight="18px"
+        marginLeft="auto"
       >
-        <option value={Sort.Created}>추가순</option>
-        <option value={Sort.Name}>이름순</option>
-      </Select>
-      <Text fontWeight="bold" fontSize="15px" height="18px" lineHeight="18px">
         🎲 {count}
       </Text>
       <IconButton
