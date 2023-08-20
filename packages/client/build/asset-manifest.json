@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2a5194c1.css",
+    "main.js": "/static/js/main.8b4b4545.js",
+    "static/media/Pretendard-Light.ttf": "/static/media/Pretendard-Light.ae54342c83bcc5345734.ttf",
+    "static/media/Pretendard-Regular.ttf": "/static/media/Pretendard-Regular.e134b5961452730e41ec.ttf",
+    "static/media/Pretendard-Medium.ttf": "/static/media/Pretendard-Medium.7f0e62f904e2bce0dbfb.ttf",
+    "static/media/Pretendard-SemiBold.ttf": "/static/media/Pretendard-SemiBold.8dc0a9b91d078d3d5abd.ttf",
+    "static/media/Pretendard-Bold.ttf": "/static/media/Pretendard-Bold.81fe678b068ad0d40f38.ttf",
+    "static/media/Recipekorea.ttf": "/static/media/Recipekorea.7c8b6d145e70b92f4010.ttf",
+    "static/media/WendyOne-Regular.ttf": "/static/media/WendyOne-Regular.561678c99d68f4e3134a.ttf",
+    "index.html": "/index.html",
+    "main.2a5194c1.css.map": "/static/css/main.2a5194c1.css.map",
+    "main.8b4b4545.js.map": "/static/js/main.8b4b4545.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2a5194c1.css",
+    "static/js/main.8b4b4545.js"
+  ]
+}
