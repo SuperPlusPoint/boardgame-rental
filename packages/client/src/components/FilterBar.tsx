@@ -5,6 +5,7 @@ import { Sort, View } from '../types/enums';
 import NumericInput from './NumericInput';
 import SVGComponent, { Icon as SVGIcon } from './common/SVGComponent';
 import FilterButton from './FilterButton';
+import RangeInput from './RangeInput';
 
 interface FilterBarProps {
   count: number;
@@ -39,17 +40,12 @@ const FilterBar = ({
         <NumericInput label="인원" value={playerNum} onChange={setPlayerNum} />
       </FilterButton>
       <FilterButton label="시간">
-        <NumericInput
-          label="최소 시간"
-          value={startPlayingTime}
-          onChange={setStartPlayingTime}
-          step={10}
-        />
-        <NumericInput
-          label="최대 시간"
-          value={endPlayingTime}
-          onChange={setEndPlayingTime}
-          step={10}
+        <RangeInput
+          value={[startPlayingTime, endPlayingTime]}
+          onChange={([start, end]) => {
+            setStartPlayingTime(start);
+            setEndPlayingTime(end);
+          }}
         />
       </FilterButton>
       <FilterButton

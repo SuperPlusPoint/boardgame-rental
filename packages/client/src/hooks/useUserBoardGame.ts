@@ -72,7 +72,7 @@ export const useUserBoardGame = (userId: string) => {
   const [sort, setSort] = useState<Sort>(Sort.Created);
   const [playerNum, setPlayerNum] = useState(0);
   const [startPlayingTime, setStartPlayingTime] = useState<number>(0);
-  const [endPlayingTime, setEndPlayingTime] = useState<number>(0);
+  const [endPlayingTime, setEndPlayingTime] = useState<number>(300);
 
   const boardGames = useMemo(() => {
     let filteredData = [...data];
