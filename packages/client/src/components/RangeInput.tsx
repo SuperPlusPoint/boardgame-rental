@@ -51,10 +51,10 @@ const RangeInput: React.FC<RangeInputProps> = ({
         <RangeSliderThumb index={0} />
         <RangeSliderThumb index={1} />
         <Text position="absolute" left="-8px" bottom="12px">
-          0분
+          {value[0]}분
         </Text>
         <Text position="absolute" right="-8px" bottom="12px">
-          300분
+          {value[1]}분
         </Text>
       </RangeSlider>
     </Flex>

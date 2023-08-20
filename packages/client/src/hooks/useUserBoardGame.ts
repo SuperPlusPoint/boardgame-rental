@@ -76,6 +76,15 @@ export const useUserBoardGame = (userId: string) => {
 
   const boardGames = useMemo(() => {
     let filteredData = [...data];
+
+    const boardGameMap = data.reduce((map, { id }) => {
+      const boardGame = queryClient.getQueryData<BoardGame>(`/boardgame/${id}`);
+      if (boardGame) {
+        map.set(id, boardGame);
+      }
+      return map;
+    }, new Map<string, BoardGame>());
+
     filteredData.sort((a, b) => {
       if (sort === Sort.Created) {
         return b.created.toMillis() - a.created.toMillis();
@@ -86,14 +95,6 @@ export const useUserBoardGame = (userId: string) => {
     if (filter) {
       filteredData = filteredData.filter(({ name }) => name.includes(filter));
     }
-
-    const boardGameMap = filteredData.reduce((map, { id }) => {
-      const boardGame = queryClient.getQueryData<BoardGame>(`/boardgame/${id}`);
-      if (boardGame) {
-        map.set(id, boardGame);
-      }
-      return map;
-    }, new Map<string, BoardGame>());
 
     if (playerNum) {
       filteredData = filteredData.filter(({ id }) => {
@@ -118,7 +119,7 @@ export const useUserBoardGame = (userId: string) => {
       });
     }
 
-    if (endPlayingTime) {
+    if (endPlayingTime && endPlayingTime !== 300) {
       filteredData = filteredData.filter(({ id }) => {
         const boardGame = boardGameMap.get(id);
         if (!boardGame) {
@@ -133,10 +134,10 @@ export const useUserBoardGame = (userId: string) => {
     data,
     filter,
     sort,
+    queryClient,
     playerNum,
     startPlayingTime,
     endPlayingTime,
-    queryClient,
   ]);
 
   const addBoardGames = useCallback(
