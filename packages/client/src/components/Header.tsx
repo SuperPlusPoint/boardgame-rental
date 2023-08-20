@@ -22,7 +22,7 @@ const Header = () => {
           </Link>
           <Link to="/add">
             <Tab>
-              <SVGComponent icon={Icon.Plus} />
+              <SVGComponent icon={Icon.Add} />
             </Tab>
           </Link>
           <Link to="/my">

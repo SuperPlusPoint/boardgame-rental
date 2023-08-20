@@ -1,21 +1,10 @@
 import React from 'react';
 import { MdFormatListBulleted, MdGridView } from 'react-icons/md';
-import {
-  Flex,
-  Select,
-  Text,
-  Popover,
-  PopoverBody,
-  PopoverContent,
-  PopoverCloseButton,
-  PopoverTrigger,
-  Button,
-  IconButton,
-  Icon,
-} from '@chakra-ui/react';
+import { Flex, Select, Text, IconButton, Icon } from '@chakra-ui/react';
 import { Sort, View } from '../types/enums';
 import NumericInput from './NumericInput';
 import SVGComponent, { Icon as SVGIcon } from './common/SVGComponent';
+import FilterButton from './FilterButton';
 
 interface FilterBarProps {
   count: number;
@@ -46,101 +35,47 @@ const FilterBar = ({
 }: FilterBarProps) => {
   return (
     <Flex alignItems="center" alignSelf="stretch" marginY="8px" gap="4px">
-      <Popover placement="bottom-start" variant="responsive">
-        <PopoverTrigger>
-          <Button
-            variant="outline"
-            colorScheme="black"
-            bgColor="white"
-            borderRadius="5px"
-            px="15px"
-            height="23px"
-            fontSize="11px"
-          >
-            인원
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent w="3xs">
-          <PopoverCloseButton />
-          <PopoverBody>
-            <NumericInput
-              label="인원"
-              value={playerNum}
-              onChange={setPlayerNum}
-            />
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-      <Popover placement="bottom-start" variant="responsive">
-        <PopoverTrigger>
-          <Button
-            variant="outline"
-            colorScheme="black"
-            bgColor="white"
-            borderRadius="5px"
-            px="15px"
-            height="23px"
-            fontSize="11px"
-          >
-            시간
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent w="2xs">
-          <PopoverCloseButton />
-          <PopoverBody>
-            <NumericInput
-              label="최소 시간"
-              value={startPlayingTime}
-              onChange={setStartPlayingTime}
-              step={10}
-            />
-            <NumericInput
-              label="최대 시간"
-              value={endPlayingTime}
-              onChange={setEndPlayingTime}
-              step={10}
-            />
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-      <Popover placement="bottom-start" variant="responsive">
-        <PopoverTrigger>
-          <Button
-            variant="outline"
-            colorScheme="black"
-            bgColor="white"
-            borderRadius="5px"
-            px="15px"
-            height="23px"
-            fontSize="11px"
-          >
-            정렬
-            <SVGComponent
-              icon={SVGIcon.SelectArrow}
-              width={6}
-              height={3}
-              color="black"
-            />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent w="2xs">
-          <PopoverCloseButton />
-          <PopoverBody>
-            <NumericInput
-              label="최소 시간"
-              value={startPlayingTime}
-              onChange={setStartPlayingTime}
-              step={10}
-            />
-            <NumericInput
-              label="최대 시간"
-              value={endPlayingTime}
-              onChange={setEndPlayingTime}
-              step={10}
-            />
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
+      <FilterButton label="인원">
+        <NumericInput label="인원" value={playerNum} onChange={setPlayerNum} />
+      </FilterButton>
+      <FilterButton label="시간">
+        <NumericInput
+          label="최소 시간"
+          value={startPlayingTime}
+          onChange={setStartPlayingTime}
+          step={10}
+        />
+        <NumericInput
+          label="최대 시간"
+          value={endPlayingTime}
+          onChange={setEndPlayingTime}
+          step={10}
+        />
+      </FilterButton>
+      <FilterButton
+        label="추가순"
+        icon={
+          <SVGComponent
+            icon={SVGIcon.SelectArrow}
+            width={6}
+            height={3}
+            color="black"
+          />
+        }
+      >
+        <NumericInput
+          label="최소 시간"
+          value={startPlayingTime}
+          onChange={setStartPlayingTime}
+          step={10}
+        />
+        <NumericInput
+          label="최대 시간"
+          value={endPlayingTime}
+          onChange={setEndPlayingTime}
+          step={10}
+        />
+      </FilterButton>
       <Select
         bgColor="white"
         borderColor="black"
