@@ -32,9 +32,10 @@ const ShareButton = () => {
   return (
     <>
       <IconButton
-        pos="absolute"
+        pos="fixed"
         bottom="19px"
         right="19px"
+        marginBottom="76px"
         backgroundColor="#FFD951"
         borderWidth={2}
         borderStyle="solid"

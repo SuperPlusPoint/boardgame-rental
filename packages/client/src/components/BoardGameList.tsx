@@ -22,13 +22,7 @@ interface ContainerProps {
 const Container: React.FC<ContainerProps> = ({ view, children }) => {
   if (view === View.List) {
     return (
-      <Flex
-        overflow="scroll"
-        my={2}
-        flex={1}
-        alignSelf="stretch"
-        direction="column"
-      >
+      <Flex my={2} flex={1} alignSelf="stretch" direction="column">
         {children}
       </Flex>
     );

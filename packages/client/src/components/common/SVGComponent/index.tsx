@@ -10,6 +10,8 @@ import SearchIcon, { SearchProps } from './SearchIcon';
 import MinusIcon, { MinusProps } from './MinusIcon';
 import PlusIcon, { PlusProps } from './PlusIcon';
 import SelectArrowIcon, { SelectArrowProps } from './SelectArrowIcon';
+import UserIcon, { UserProps } from './UserIcon';
+import ClockIcon, { ClockProps } from './ClockIcon';
 
 export enum Icon {
   Category = 'Category',
@@ -22,6 +24,8 @@ export enum Icon {
   Title = 'Title',
   Menu = 'Menu',
   Search = 'Search',
+  User = 'User',
+  Clock = 'Clock',
   SelectArrow = 'SelectArrow',
 }
 
@@ -62,6 +66,8 @@ const icons = {
   ),
   [Icon.Menu]: ({ color }: MenuProps) => <MenuIcon color={color} />,
   [Icon.Search]: ({ color }: SearchProps) => <SearchIcon color={color} />,
+  [Icon.User]: ({ color }: UserProps) => <UserIcon color={color} />,
+  [Icon.Clock]: ({ color }: ClockProps) => <ClockIcon color={color} />,
   [Icon.Title]: ({ width }: TitleProps) => <TitleIcon width={width} />,
 };
 
