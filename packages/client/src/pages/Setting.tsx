@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Flex, Heading, Box, Button, useToast, Badge } from '@chakra-ui/react';
+import { Flex, Text, Button, useToast } from '@chakra-ui/react';
 import SearchBar from '../components/SearchBar';
 import EditableBoardGameList from '../components/EditableBoardGameList';
 import { useAuthContext } from '../AuthProvider';
 import { useUserBoardGame } from '../hooks/useUserBoardGame';
+import Header from '../layout/Header';
 
 const Setting = () => {
   const { user } = useAuthContext();
@@ -19,29 +20,39 @@ const Setting = () => {
   return (
     <Flex
       pos="relative"
-      h="100%"
       flexDirection="column"
+      justify="center"
       align="center"
-      px={8}
-      pb={8}
+      px="16px"
+      pb="15px"
+      h="100%"
     >
-      <Box zIndex={8} alignSelf="stretch">
-        <Heading as="h2" size="lg" lineHeight="tall" textAlign="center">
-          보드게임 관리
-        </Heading>
-        <Badge>총 보유수 {boardGames.length}개</Badge>
-        <SearchBar onSearch={(value) => setFilter(value)} />
-      </Box>
+      <Header title="보드게임 관리" mb="16px" />
+      <Text
+        fontWeight="bold"
+        fontSize="15px"
+        height="18px"
+        lineHeight="18px"
+        marginLeft="auto"
+        marginBottom="10px"
+      >
+        🎲 {boardGames.length}
+      </Text>
+      <SearchBar full onSearch={(value) => setFilter(value)} />
       <EditableBoardGameList
         boardGameList={settingBoardGames}
         updateBoardGame={updateBoardGame}
         filter={filter}
       />
       <Button
-        size="md"
-        my={2}
         alignSelf="stretch"
-        colorScheme="blue"
+        backgroundColor="#D5F479"
+        fontSize="20px"
+        borderRadius="12"
+        border="1px solid black"
+        py="18px"
+        mt="10px"
+        height=""
         onClick={() => {
           toast({
             title: '저장되었습니다.',

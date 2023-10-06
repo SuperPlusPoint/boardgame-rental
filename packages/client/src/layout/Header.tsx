@@ -3,11 +3,13 @@ import { Flex, Heading } from '@chakra-ui/react';
 
 interface HeaderProps {
   title: string;
+  mt?: string;
+  mb?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+const Header: React.FC<HeaderProps> = ({ title, mt = 67, mb = 27 }) => {
   return (
-    <Flex justify="between" align="center" pt={67} pb={22}>
+    <Flex justify="between" align="center" mt={mt} mb={mb}>
       <Heading as="h2" size="lg" lineHeight="tall" textAlign="center">
         {title}
       </Heading>

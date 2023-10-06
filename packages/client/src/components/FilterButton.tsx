@@ -26,6 +26,7 @@ const FilterButton = ({ label, icon, children }: FilterButtonProps) => {
           px={icon ? '12px' : '15px'}
           height="23px"
           fontSize="11px"
+          fontWeight="bold"
         >
           {label}
           <Box ml="4px">{icon}</Box>

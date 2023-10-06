@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Image, Flex, Text } from '@chakra-ui/react';
 import { BoardGame } from '../models/boardgame';
 import SVGComponent, { Icon } from './common/SVGComponent';
-import CheckBox from './common/CheckBox';
 
 interface SearchItemProps {
   boardGame: BoardGame;
@@ -21,7 +20,6 @@ const SearchItem: React.FC<SearchItemProps> = ({ boardGame, onSelect }) => {
       borderBottom="1px solid black"
       position="relative"
     >
-      <CheckBox checked={false} onChange={() => {}} />
       <Image
         boxSize="60px"
         borderRadius="8px"

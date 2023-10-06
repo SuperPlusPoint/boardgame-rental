@@ -33,7 +33,7 @@ const ListAdd = () => {
       pb="15px"
       h="100%"
     >
-      <Header title="보드게임 추가" />
+      <Header title="보드게임 추가하기" />
       <SearchBar full onSearch={(value) => searchBoardGame(value)} />
       <SearchList
         isLoading={isLoading}

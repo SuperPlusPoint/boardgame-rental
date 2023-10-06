@@ -47,9 +47,21 @@ const FilterBar = ({
   setView,
 }: FilterBarProps) => {
   return (
-    <Flex alignItems="center" alignSelf="stretch" marginY="8px" gap="4px">
+    <Flex
+      alignItems="center"
+      alignSelf="stretch"
+      marginY="8px"
+      gap="4px"
+      fontWeight="bold"
+    >
       <FilterButton label="인원">
-        <NumericInput label="인원" value={playerNum} onChange={setPlayerNum} />
+        <NumericInput
+          label="인원"
+          value={playerNum}
+          px="8px"
+          py="12px"
+          onChange={setPlayerNum}
+        />
       </FilterButton>
       <FilterButton label="시간">
         <RangeInput

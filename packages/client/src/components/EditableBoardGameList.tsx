@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { UserBoardGame } from '../models/boardgame';
 import EditableListItem from './EditableListItem';
 
@@ -14,21 +14,43 @@ const EditableBoardGameList: React.FC<EditableBoardGameListProps> = ({
   filter,
 }) => {
   return (
-    <Box alignSelf="stretch" flex={1} overflow="scroll" mt={2}>
+    <Flex
+      border="1px solid black"
+      backgroundColor="white"
+      my="5px"
+      alignSelf="stretch"
+      flexDirection="column"
+      flex={1}
+      overflowY="scroll"
+    >
       {boardGameList.length === 0 ? (
-        <Text mt={5} textAlign="center">
-          {!filter ? '보드게임을 추가해주세요.' : '검색 결과가 없습니다.'}
+        <Text mt="39px" align="center" fontWeight="semibold" fontSize="14px">
+          {!filter ? '보드게임을 추가해주세요' : '검색 결과가 없습니다'}
         </Text>
       ) : (
-        boardGameList.map((boardGame) => (
-          <EditableListItem
-            key={boardGame.id}
-            userBoardGame={boardGame}
-            updateBoardGame={updateBoardGame}
-          />
-        ))
+        <>
+          <Box borderBottom="1px solid black" pl="13px" py="9px">
+            <Text
+              align="center"
+              fontWeight="semibold"
+              fontSize="14px"
+              textAlign="left"
+            >
+              보유 중인 보드게임의 수량과 대여 현황을 관리해보세요
+            </Text>
+          </Box>
+          <Flex flexDirection="column" overflow="scroll">
+            {boardGameList.map((boardGame) => (
+              <EditableListItem
+                key={boardGame.id}
+                userBoardGame={boardGame}
+                updateBoardGame={updateBoardGame}
+              />
+            ))}
+          </Flex>
+        </>
       )}
-    </Box>
+    </Flex>
   );
 };
 

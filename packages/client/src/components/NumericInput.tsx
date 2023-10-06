@@ -13,6 +13,8 @@ interface NumericInputProps {
   value: number;
   max?: number;
   step?: number;
+  px?: string;
+  py?: string;
   onChange?: (v: number) => void;
 }
 
@@ -22,15 +24,16 @@ const NumericInput: React.FC<NumericInputProps> = ({
   max,
   step = 1,
   onChange,
+  px,
+  py,
 }) => {
   return (
     <Flex
-      px={label && '8px'}
-      py={label && '12px'}
+      px={label && px}
+      py={label && py}
       gap="11px"
       alignItems="center"
       fontSize="13px"
-      fontWeight="bold"
     >
       {label && <Text fontSize="sm">{label}</Text>}
       <IconButton
