@@ -173,9 +173,10 @@ const ListItem: React.FC<ListItemProps> = ({
           userBoardGame={userBoardGame}
           boardGame={boardGame}
           isOpen={isOpen}
-          isNew={isNewBoardGame}
-          footer={buttonGroup}
+          returnBoardGame={returnBoardGame}
+          rentBoardGame={rentBoardGame}
           onClose={onClose}
+          isLogin={isLogin}
         />
       )}
     </>

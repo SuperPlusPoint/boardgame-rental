@@ -9,7 +9,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ title, mt = 67, mb = 27 }) => {
   return (
-    <Flex justify="between" align="center" mt={mt} mb={mb}>
+    <Flex justify="center" align="center" mt={mt} mb={mb}>
       <Heading as="h2" size="lg" lineHeight="tall" textAlign="center">
         {title}
       </Heading>

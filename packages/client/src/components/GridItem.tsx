@@ -3,8 +3,6 @@ import {
   Flex,
   Image,
   Text,
-  Button,
-  ButtonGroup,
   Skeleton,
   useDisclosure,
   Box,
@@ -39,43 +37,6 @@ const GridItem: React.FC<GridItemProps> = ({
   const isNewBoardGame = useMemo(
     () => isNew(userBoardGame?.created?.toMillis()),
     [userBoardGame]
-  );
-  const buttonGroup = useMemo(
-    () => (
-      <ButtonGroup spacing={2}>
-        {isLogin ? (
-          <>
-            <Button
-              size="xs"
-              colorScheme="blue"
-              isDisabled={userBoardGame.rental === userBoardGame.total}
-              onClick={() => rentBoardGame(userBoardGame)}
-            >
-              대여 하기
-            </Button>
-            <Button
-              size="xs"
-              colorScheme="red"
-              isDisabled={userBoardGame.rental < 1}
-              onClick={() => returnBoardGame(userBoardGame)}
-            >
-              반납 하기
-            </Button>
-          </>
-        ) : (
-          <Button
-            size="xs"
-            colorScheme={
-              userBoardGame.rental < userBoardGame.total ? 'blue' : 'red'
-            }
-          >
-            대여
-            {userBoardGame.rental < userBoardGame.total ? '가능' : '불가'}
-          </Button>
-        )}
-      </ButtonGroup>
-    ),
-    [isLogin, userBoardGame, rentBoardGame, returnBoardGame]
   );
 
   return (
@@ -157,9 +118,10 @@ const GridItem: React.FC<GridItemProps> = ({
           userBoardGame={userBoardGame}
           boardGame={boardGame}
           isOpen={isOpen}
-          isNew={isNewBoardGame}
-          footer={buttonGroup}
+          returnBoardGame={returnBoardGame}
+          rentBoardGame={rentBoardGame}
           onClose={onClose}
+          isLogin={isLogin}
         />
       )}
     </>
