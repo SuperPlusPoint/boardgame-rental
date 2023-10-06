@@ -116,7 +116,7 @@ const ListItem: React.FC<ListItemProps> = ({
             alt={`${boardGame?.name} thumbnail`}
           />
         </Skeleton>
-        {isNewBoardGame || (
+        {isNewBoardGame && (
           <Box
             bgColor="#FFD951"
             width="78px"

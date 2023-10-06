@@ -92,7 +92,7 @@ const GridItem: React.FC<GridItemProps> = ({
         borderRadius="12px"
         position="relative"
       >
-        {isNewBoardGame || (
+        {isNewBoardGame && (
           <Box
             bgColor="#FFD951"
             width="78px"
