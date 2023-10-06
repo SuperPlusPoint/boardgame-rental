@@ -28,7 +28,12 @@ const Container: React.FC<ContainerProps> = ({ view, children }) => {
     );
   }
   return (
-    <Grid templateColumns="repeat(4, 1fr)" gap={2}>
+    <Grid
+      alignSelf="stretch"
+      templateColumns="repeat(3, 1fr)"
+      gridRowGap="10px"
+      justifyItems="center"
+    >
       {children}
     </Grid>
   );

@@ -85,7 +85,7 @@ const ListItem: React.FC<ListItemProps> = ({
             }
           >
             대여
-            {userBoardGame.rental < userBoardGame.total ? '하기' : '불가'}
+            {userBoardGame.rental < userBoardGame.total ? '가능' : '불가'}
           </Button>
         )}
       </ButtonGroup>
@@ -114,7 +114,6 @@ const ListItem: React.FC<ListItemProps> = ({
             objectFit="cover"
             src={boardGame?.thumbnail}
             alt={`${boardGame?.name} thumbnail`}
-            fallbackSrc="https://via.placeholder.com/64"
           />
         </Skeleton>
         {isNewBoardGame || (
@@ -150,7 +149,7 @@ const ListItem: React.FC<ListItemProps> = ({
               marginLeft="3px"
               marginRight="6px"
             >
-              <Text fontSize="6px">
+              <Text fontSize="6px" style={{ zoom: 0.6 }}>
                 {boardGame?.minPlayerNum}-{boardGame?.maxPlayerNum} players
               </Text>
             </SkeletonText>
@@ -161,7 +160,9 @@ const ListItem: React.FC<ListItemProps> = ({
               color="black"
             />
             <SkeletonText isLoaded={!isLoading} noOfLines={1} marginLeft="3px">
-              <Text fontSize="6px">{boardGame?.playingTime} min</Text>
+              <Text fontSize="6px" style={{ zoom: 0.6 }}>
+                {boardGame?.playingTime} min
+              </Text>
             </SkeletonText>
           </Flex>
           {buttonGroup}
