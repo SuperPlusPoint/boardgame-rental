@@ -7,9 +7,11 @@ import {
   FormControl,
   FormHelperText,
   FormErrorMessage,
+  Heading,
 } from '@chakra-ui/react';
 import { useAuthContext } from '../AuthProvider';
 import { useUserBoardGame } from '../hooks/useUserBoardGame';
+import Header from '../layout/Header';
 
 const MyPage = () => {
   const { user, logout } = useAuthContext();
@@ -21,7 +23,7 @@ const MyPage = () => {
   const handleInput = useCallback(
     (e: React.ChangeEvent) => {
       const { value } = e.target as HTMLInputElement;
-      if (value.length > 12) {
+      if (value.length > 6) {
         setIsError(true);
       } else {
         setIsError(false);
@@ -48,40 +50,81 @@ const MyPage = () => {
   return (
     <form style={{ height: '100%' }} onSubmit={handleSubmit}>
       <Flex
-        h="100%"
-        boxSizing="border-box"
+        pos="relative"
         flexDirection="column"
-        px={8}
-        py={4}
+        justify="center"
+        align="center"
+        px="16px"
+        pb="15px"
+        h="100%"
       >
-        <FormControl flex={1} isInvalid={isError}>
-          <Input
-            placeholder="이름"
-            size="sm"
-            borderRadius="md"
-            variant="outline"
-            type="text"
-            value={name}
-            onChange={handleInput}
-          />
-          {!isError ? (
-            <FormHelperText>이름을 변경할 수 있습니다.</FormHelperText>
-          ) : (
-            <FormErrorMessage>
-              이름은 최대 12자까지 설정할 수 있습니다.
-            </FormErrorMessage>
-          )}
-        </FormControl>
+        <Header title="마이페이지" />
+        <Flex flex="1" flexDirection="column" justify="center" align="center">
+          <Heading
+            as="h3"
+            size="lg"
+            fontFamily="WendyOne"
+            fontWeight="normal"
+            fontSize="33px"
+          >
+            My Nickname is
+          </Heading>
+          <FormControl isInvalid={isError} textAlign="center" width="175px">
+            <Input
+              placeholder="이름"
+              width="175px"
+              height="32px"
+              paddingLeft="10px"
+              backgroundColor="white"
+              border="1px solid black"
+              fontFamily="Recipekorea"
+              variant="outline"
+              borderRadius=""
+              maxLength={6}
+              type="text"
+              value={name}
+              onChange={handleInput}
+            />
+            {!isError ? (
+              <FormHelperText
+                textAlign="left"
+                fontSize="8px"
+                style={{ zoom: 0.8 }}
+              >
+                닉네임을 변경할 수 있습니다. (최대 6글자)
+              </FormHelperText>
+            ) : (
+              <FormErrorMessage>
+                이름은 최대 6글자까지 설정할 수 있습니다.
+              </FormErrorMessage>
+            )}
+          </FormControl>
+        </Flex>
         <Button
+          alignSelf="stretch"
+          backgroundColor="#D5F479"
           isDisabled={isError}
-          size="md"
-          colorScheme="blue"
-          my={2}
+          fontSize="20px"
+          borderRadius="12"
+          border="1px solid black"
+          py="18px"
+          mt="10px"
+          height=""
           type="submit"
         >
           저장하기
         </Button>
-        <Button size="md" colorScheme="gray" my={2} onClick={logout}>
+        <Button
+          alignSelf="stretch"
+          backgroundColor="#D5F479"
+          fontSize="20px"
+          borderRadius="12"
+          border="1px solid black"
+          py="18px"
+          mt="10px"
+          height=""
+          onClick={logout}
+        >
           로그아웃
         </Button>
       </Flex>
