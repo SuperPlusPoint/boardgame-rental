@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Flex, Heading, Box, Button } from '@chakra-ui/react';
+import { Flex, Button } from '@chakra-ui/react';
 import SearchBar from '../components/SearchBar';
 import SelectedList from '../components/SelectedList';
 import SearchList from '../components/SearchList';
 import { useBoardGame } from '../hooks/useBoardGame';
 import { useUserBoardGame } from '../hooks/useUserBoardGame';
 import { useAuthContext } from '../AuthProvider';
+import Header from '../layout/Header';
 
 const ListAdd = () => {
   const { user } = useAuthContext();
@@ -28,31 +29,34 @@ const ListAdd = () => {
       flexDirection="column"
       justify="center"
       align="center"
-      px={8}
-      pb={8}
+      px="16px"
+      pb="15px"
       h="100%"
     >
-      <Box alignSelf="stretch" zIndex={8}>
-        <Heading as="h2" size="lg" lineHeight="tall" textAlign="center">
-          보드게임 추가
-        </Heading>
-        <SearchBar onSearch={(value) => searchBoardGame(value)} />
-      </Box>
+      <Header title="보드게임 추가" />
+      <SearchBar full onSearch={(value) => searchBoardGame(value)} />
       <SearchList
         isLoading={isLoading}
         isFetched={isFetched}
         boardGameList={searchedBoardGameList}
         selectBoardGame={selectBoardGame}
       />
-      <SelectedList
-        selectedList={selectedBoardGameList}
-        changeTotal={changeTotal}
-      />
+      {selectedBoardGameList.length > 0 && (
+        <SelectedList
+          selectedList={selectedBoardGameList}
+          changeTotal={changeTotal}
+        />
+      )}
       <Button
-        size="md"
         alignSelf="stretch"
-        colorScheme="blue"
-        mt={4}
+        isDisabled={selectedBoardGameList.length === 0}
+        backgroundColor="#D5F479"
+        fontSize="20px"
+        borderRadius="12"
+        border="1px solid black"
+        py="18px"
+        mt="10px"
+        height=""
         onClick={() =>
           addBoardGames(selectedBoardGameList).then(() => navigate('/setting'))
         }

@@ -12,6 +12,10 @@ import PlusIcon, { PlusProps } from './PlusIcon';
 import SelectArrowIcon, { SelectArrowProps } from './SelectArrowIcon';
 import UserIcon, { UserProps } from './UserIcon';
 import ClockIcon, { ClockProps } from './ClockIcon';
+import LeftArrowIcon from './LeftArrow';
+import CheckBoxIcon from './CheckBoxIcon';
+import CheckedBoxIcon from './CheckedBoxIcon';
+import CloseSquareIcon from './CloseSquareIcon';
 
 export enum Icon {
   Category = 'Category',
@@ -27,6 +31,10 @@ export enum Icon {
   User = 'User',
   Clock = 'Clock',
   SelectArrow = 'SelectArrow',
+  LeftArrow = 'LeftArrow',
+  CheckBox = 'CheckBox',
+  CheckedBox = 'CheckedBox',
+  Close = 'Close',
 }
 
 interface SVGProps {
@@ -69,6 +77,10 @@ const icons = {
   [Icon.User]: ({ color }: UserProps) => <UserIcon color={color} />,
   [Icon.Clock]: ({ color }: ClockProps) => <ClockIcon color={color} />,
   [Icon.Title]: ({ width }: TitleProps) => <TitleIcon width={width} />,
+  [Icon.LeftArrow]: () => <LeftArrowIcon />,
+  [Icon.CheckBox]: () => <CheckBoxIcon />,
+  [Icon.Close]: () => <CloseSquareIcon />,
+  [Icon.CheckedBox]: () => <CheckedBoxIcon />,
 };
 
 const SVGComponent = ({

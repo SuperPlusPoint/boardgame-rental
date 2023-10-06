@@ -25,8 +25,8 @@ const NumericInput: React.FC<NumericInputProps> = ({
 }) => {
   return (
     <Flex
-      px="8px"
-      py="12px"
+      px={label && '8px'}
+      py={label && '12px'}
       gap="11px"
       alignItems="center"
       fontSize="13px"
@@ -55,6 +55,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
         value={value}
         fontSize="13px"
         variant="unstyled"
+        textAlign="center"
         maxW="18px"
         min={0}
         max={max}

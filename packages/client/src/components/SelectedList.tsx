@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Box,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  TableContainer,
-} from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import SelectedItem from './SelectedItem';
 import { UserBoardGame } from '../models/boardgame';
 
@@ -21,27 +13,18 @@ const SelectedList: React.FC<SelectedListProps> = ({
   changeTotal,
 }) => {
   return (
-    <Box alignSelf="stretch" overflow="scroll" mt={4} maxH="150px">
-      <TableContainer whiteSpace="normal" wordBreak="break-word">
-        <Table size="sm">
-          <Thead>
-            <Tr>
-              <Th>이름</Th>
-              <Th>수량</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {selectedList.map((item) => (
-              <SelectedItem
-                key={item.id}
-                item={item}
-                changeTotal={changeTotal}
-              />
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </Box>
+    <Flex
+      backgroundColor="white"
+      border="1px solid black"
+      alignSelf="stretch"
+      overflowY="scroll"
+      height="222px"
+      flexDirection="column"
+    >
+      {selectedList.map((item) => (
+        <SelectedItem key={item.id} item={item} changeTotal={changeTotal} />
+      ))}
+    </Flex>
   );
 };
 

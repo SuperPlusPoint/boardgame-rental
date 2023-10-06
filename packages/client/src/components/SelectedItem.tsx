@@ -1,7 +1,8 @@
 import React from 'react';
-import { Tr, Td, Text } from '@chakra-ui/react';
+import { Text, Flex, Button } from '@chakra-ui/react';
 import { UserBoardGame } from '../models/boardgame';
 import NumericInput from './NumericInput';
+import SVGComponent, { Icon } from './common/SVGComponent';
 
 interface SelectedItemProps {
   item: UserBoardGame;
@@ -9,19 +10,34 @@ interface SelectedItemProps {
 }
 const SelectedItem: React.FC<SelectedItemProps> = ({ item, changeTotal }) => {
   return (
-    <Tr>
-      <Td>
-        <Text w="10rem" maxHeight="2rem" overflow="hidden">
-          {item.name}
-        </Text>
-      </Td>
-      <Td>
-        <NumericInput
-          value={item.total}
-          onChange={(value) => changeTotal(item, value)}
+    <Flex
+      py="16px"
+      px="18px"
+      borderBottom="1px solid black"
+      alignItems="center"
+    >
+      <Text
+        flex="1"
+        fontWeight="semibold"
+        textOverflow="ellipsis"
+        whiteSpace="nowrap"
+        overflow="hidden"
+      >
+        {item.name}
+      </Text>
+      <NumericInput
+        value={item.total}
+        onChange={(value) => changeTotal(item, value)}
+      />
+      <Button variant="unstyled" onClick={() => changeTotal(item, -1)}>
+        <SVGComponent
+          style={{ marginLeft: '58px' }}
+          icon={Icon.Close}
+          width={22}
+          height={22}
         />
-      </Td>
-    </Tr>
+      </Button>
+    </Flex>
   );
 };
 

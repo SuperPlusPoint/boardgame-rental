@@ -69,6 +69,9 @@ export const useBoardGame = () => {
       if (index === -1) {
         return [...prevBoardGameList];
       }
+      if (total < 0) {
+        return prevBoardGameList.filter(({ id }) => id !== boardGame.id);
+      }
       return [
         ...prevBoardGameList.slice(0, index),
         {
