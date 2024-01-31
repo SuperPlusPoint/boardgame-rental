@@ -14,17 +14,28 @@ import {
   Th,
   Thead,
   Tr,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { AddIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { Navigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { useAuthContext } from '../AuthProvider';
 import { useAdmin } from '../hooks/useAdmin';
+import ModalInputKeyValue from '../components/ModalInputKeyValue';
+import ModalWarning from '../components/ModalWarning';
 
 const Admin = () => {
   const { user } = useAuthContext();
-  const { adminCSSProperties, collectionNames, getList, checkPageAuthority } =
-    useAdmin();
+  const {
+    adminCSSProperties,
+    collectionNames,
+    getList,
+    checkPageAuthority,
+    updateField,
+    deleteFieldData,
+  } = useAdmin();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const warningModal = useDisclosure();
 
   // 현재 collection, list name
   const [currentInfo, setCurrentInfo] = useState({
@@ -38,11 +49,46 @@ const Admin = () => {
   // delete Icon
   const [deleteIcon, setDeleteIcon] = useState<boolean[]>([false]);
 
+  // 현재 field data의 list index
+  const [listIndex, setListIndex] = useState(-1);
+  // field key
+  const [dataKey, setDataKey] = useState<string>('');
+  // field value
+  const [dataValue, setDataValue] = useState<any>('');
+
+  // update 시 새로운 데이터 추가여부 판단
+  const [addNew, setAddNew] = useState<boolean>(false);
+  const resetData = () => {
+    setDataKey('');
+    setDataValue('');
+  };
+
+  const customOnClose = () => {
+    resetData();
+    onClose();
+  };
+
   const collectionNamesList = [
     collectionNames.boardgamesTableName,
     collectionNames.groupTableName,
     collectionNames.userTableName,
   ];
+
+  const onSubmit = () => {
+    updateField(
+      user,
+      db,
+      currentInfo.collectionInfo,
+      currentInfo.listInfo,
+      { [dataKey]: dataValue },
+      list,
+      setList,
+      listIndex,
+      addNew
+    );
+    resetData();
+    onClose();
+  };
 
   if (!checkPageAuthority(user)) {
     if (user?.uid) {
@@ -108,6 +154,7 @@ const Admin = () => {
                           listInfo: tempListInfo,
                         });
                         setField(list[index]);
+                        setListIndex(index);
                       }}
                     >
                       {listItem.name}
@@ -120,7 +167,13 @@ const Admin = () => {
                 style={adminCSSProperties.styleColumnField}
               >
                 <div>
-                  <Button>
+                  <Button
+                    onClick={() => {
+                      resetData();
+                      setAddNew(true);
+                      onOpen();
+                    }}
+                  >
                     <AddIcon style={{ marginRight: 10 }} /> 필드 추가
                   </Button>
                 </div>
@@ -158,10 +211,25 @@ const Admin = () => {
                       {key} : {field[key]}
                       {deleteIcon[index] ? (
                         <div style={{ alignItems: 'right' }}>
-                          <Button size="xs">
+                          <Button
+                            size="xs"
+                            onClick={() => {
+                              setDataKey(key);
+                              setDataValue(field[key]);
+                              setAddNew(false);
+                              onOpen();
+                            }}
+                          >
                             <EditIcon />
                           </Button>
-                          <Button size="xs">
+                          <Button
+                            size="xs"
+                            onClick={() => {
+                              setDataKey(key);
+                              setDataValue(field[key]);
+                              warningModal.onOpen();
+                            }}
+                          >
                             <DeleteIcon color="red" />
                           </Button>
                         </div>
@@ -185,6 +253,33 @@ const Admin = () => {
           </Tfoot>
         </Table>
       </TableContainer>
+      {ModalInputKeyValue(
+        addNew,
+        isOpen,
+        customOnClose,
+        dataKey,
+        dataValue,
+        setDataKey,
+        setDataValue,
+        onSubmit
+      )}
+      {ModalWarning(
+        `${dataKey} : ${dataValue}`,
+        warningModal.isOpen,
+        warningModal.onClose,
+        () => {
+          deleteFieldData(
+            user,
+            db,
+            currentInfo.collectionInfo,
+            currentInfo.listInfo,
+            dataKey,
+            list,
+            setList,
+            listIndex
+          );
+        }
+      )}
     </Flex>
   );
 };
