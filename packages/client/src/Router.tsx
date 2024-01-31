@@ -9,6 +9,7 @@ import PrivateRouter from './PrivateRouter';
 import KakaoLogin from './pages/KakaoLogin';
 import Layout from './layout/Layout';
 import MyPage from './pages/MyPage';
+import Admin from './pages/Admin';
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
             <Route path="/setting" element={<Setting />} />
             <Route path="/add" element={<ListAdd />} />
             <Route path="/my" element={<MyPage />} />
+            <Route path="/admin" element={<Admin />} />
           </Route>
           <Route path="/list/:userId" element={<List />} />
           <Route path="*" element={<NotFound />} />
